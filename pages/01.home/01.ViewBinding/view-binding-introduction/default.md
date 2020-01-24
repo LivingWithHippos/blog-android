@@ -18,7 +18,7 @@ View Binding is a new feature in Android development aimed at easing the use of 
 #### Good Old findViewById
 The old way to obtain a View from your XML layout in your code required a setup like this:
 
-[fa icon=fa-file-code /] *fragment_first.xml*
+[fa icon=fa-file-code /] *our layout example: fragment_first.xml*
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -95,7 +95,7 @@ We use a var button: Button? and button?.setOnClickListener to manage null value
 ```
 Now since a class for every XML layout is going to be generated, rebuild [fa=fa-hammer /] your project. 
 
-!! [fa icon=fa-bug /] View Bind is not fully stable and re building the project can be useful to fix random issues such as losing references to Binding classes. You can also remove viewbinding from you app gradle file, Sync and re-add it.
+!! [fa icon=fa-bug /] View Bind is not fully stable and re building the project can be useful to fix random issues such as losing references to Binding classes. You can also remove viewbinding from you app gradle file, Sync and re-add it or use File -> Invalidate cache / restart.
 
 #### Using our View Binding
 For every *layout_name.xml* in your res/layout folder a correspondent *LayoutNameBinding* class will be created. 
@@ -104,17 +104,19 @@ We can now use this to call every piece of our view.
 ```kotlin
 class FirstFragment : Fragment() {
 
-    // lateinit variable since it's initialized in the onCreate()
-    private lateinit var binding : FragmentFirstBinding
+    // we use a nullable binding so we can remove it when the fragment is destroyed
+    private var _binding: FragmentFirstBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // get this from inflate
-        binding = FragmentFirstBinding.inflate(inflater)
+        // we initialize it once here, in the onCreateView
+        _binding = FragmentFirstBinding.inflate(inflater, container, false)
         // binding.root is our root view
-        return binding.root
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -123,6 +125,10 @@ class FirstFragment : Fragment() {
         binding.buttonFirst.setOnClickListener {
             ...
         }
+    }
+    
+    override fun onDestroyView() {
+        _binding = null
     }
 }
 ```
