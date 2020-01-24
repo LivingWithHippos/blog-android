@@ -14,6 +14,6 @@ This blog will contain guides, tips and tricks related to Android development. I
 
 ### TABLE OF CONTENTS
 
-* [View Binding, An Introduction](https://sandnaut.com/blog/android/viewbinding/view-binding-introduction)
+* [View Binding, An Introduction](https://marco.biasin.dev/home/viewbinding/view-binding-introduction)
 
 ![Avatar](avatar_02_01.png)
