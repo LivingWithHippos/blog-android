@@ -6,7 +6,8 @@ shortcode-core:
     load_fontawesome: true
 ---
 
-## VIEW BINDING FOR ANDROID
+## [center]VIEW BINDING FOR ANDROID[/center]
+[center][color=green]Marco Biasin[/color] - **January 10, 2020** - updated on **January 28, 2020**.[/center]
 
 !!! [[fa=fa-android /] Android Official Page on View Binding](https://developer.android.com/topic/libraries/view-binding)
 
