@@ -1,5 +1,6 @@
 ---
 title: 'Multiple View Bindings For RecyclerView'
+published: false
 ---
 
 ## VIEW BINDING FOR RECYCLERVIEWS WITH MULTIPLE ITEMS LAYOUT
