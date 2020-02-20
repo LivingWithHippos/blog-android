@@ -7,9 +7,9 @@ title: 'Multiple View Bindings For RecyclerView'
 
 !!! [[fa=fa-android /] Android Official Page on RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview)
 
-#### What is a RecyclerView?
+#### Android's RecyclerView
 
-RecyclerView is a powerful and relatively easy way to create lists in Android. This tutorial won't cover the basics, so if you need to learn about it or refresh your memory, follow the link at the top of the page.
+RecyclerViews are a powerful and relatively easy way to create lists in Android. This tutorial won't cover the basics, so if you want to learn about it or refresh your memory, follow the link at the top of the page.
 
 
 #### Why would we need to use different items layout?
@@ -18,7 +18,7 @@ There can be various reasons to do this, usually showing different states for th
 
 #### The Setup
 
-Add ViewBinding to your app's `build.gradle` (see [here](https://marco.biasin.dev/home/viewbinding/view-binding-introduction) for an introduction). For completeness these are my gradle files:
+Add ViewBinding to your app's 'build.gradle' (see [here](https://marco.biasin.dev/home/viewbinding/view-binding-introduction) for an introduction). For completeness these are my Gradle files:
 
 [details="build.gradle (app)"]
 
@@ -117,16 +117,16 @@ ext {
 
 [/details]
 
-### Building the list
+### Building the List
 
-- The list passed to the adapter will be a generic one since we want to use different items, let's create an interface for that. An int variable will be used to identify each item type:
+- The list passed to the adapter is a generic one since we want to use different items, let's create an interface for that. A variable is used to identify each item type:
 
 ```kotlin
 interface MultiListItem {
     val type: Int
 }
 ```
-In this example a Pair<String,String> and a String will be used as items:
+In this example a Pair<String, String> and a String are used as items:
 
 ```kotlin
 data class PoetAndQuote(val nameAndQuote: Pair<String,String>, override val type: Int = TYPE_PAIR): MultiListItem
@@ -135,7 +135,7 @@ data class Poet(val name: String, override val type: Int = TYPE_SINGLE): MultiLi
 
 - Write the xml layout of each RecyclerView's item. See here for the one used in the project (or visit the repo)
 
-- Our ViewHolders must receive the correct ViewBinding corresponding to the just-created xml layout (layout_name.xml -> LayoutNameBinding)  and initialize it. Build the project if you're not seeing the bindings ibn the auto-complete menu. _clicklistener is just a function used as callback, see [here](https://kotlinlang.org/docs/reference/lambdas.html#higher-order-functions-and-lambdas) to learn a little about higher order function. It's optional but you almost always need some kind of feedback from list taps.
+- Our ViewHolders must receive the correct ViewBinding corresponding to the just-created xml layout (layout_name.xml -> LayoutNameBinding) and initialize it. Re-build the project if you do not see the bindings in the auto-complete menu. _clicklistener is just a function used as callback, see [here](https://kotlinlang.org/docs/reference/lambdas.html#higher-order-functions-and-lambdas) to learn a little about higher-order function. It's optional, but you almost always need some feedback from taps on a list.
 
 
 ```kotlin
@@ -159,8 +159,9 @@ class FirstHolder(fBinding: FirstListItemBinding) :
 }
 ```
 
-Here the first element of the `Pair<String,String>` will be returned when tapping on the CardView. 
-`with` and `also` are [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html) and are also optional, they can avoided with a more classic: 
+Here the first element of the 'Pair<String, String>' is returned when tapping on the CardView.
+'with' and 'also' are [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html) and are also optional, they can be avoided with a more classic:
+
 
 ```kotlin
 if(item is PoetAndQuote){
@@ -171,7 +172,7 @@ if(item is PoetAndQuote){
     }
 ```
 
-- The adapter is the most important part of the list, its constructor takes a list of items and the callback function.
+- The adapter is the most crucial part of the list, and its constructor takes a list of items and the callback function.
 
 ```kotlin
 class MultiViewBindingAdapter(
@@ -181,7 +182,7 @@ class MultiViewBindingAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 ```
-The item list with two accessory functions to get the unmber of items and their type:
+The item list with two accessory functions to get the number of items and their type:
 
 ```kotlin
 
@@ -192,7 +193,7 @@ The item list with two accessory functions to get the unmber of items and their 
     override fun getItemViewType(position: Int): Int = itemList[position].type 
 
 ```
-Function `onCreateViewHolder` checks the item's type thanks to `getItemViewType` and the interface `MultiListItem` and returns the right ViewHolder implementation initialized with the correct binding.
+Function 'onCreateViewHolder' checks the item's type thanks to 'getItemViewType' and the interface 'MultiListItem' and returns the right ViewHolder implementation initialized with the correct binding.
 
 ```kotlin
 
@@ -228,7 +229,7 @@ Lastly the items and the click listener must be passed to their ViewHolder in `o
 }
 ```
 
-And here are the last loose variables:
+And here are the last loose variables/classes:
 
 ```kotlin
 const val TYPE_PAIR = 0
@@ -255,7 +256,7 @@ class MainActivity : AppCompatActivity() {
         setupList()
     }
 ```
-`setupList` makes all the operation needed to initialize our work
+'setupList' makes all the operations needed to initialize our work.
 
 ```kotlin
 fun setupList(){
