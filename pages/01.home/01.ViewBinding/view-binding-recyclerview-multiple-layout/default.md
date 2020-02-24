@@ -1,6 +1,5 @@
 ---
 title: 'Multiple View Bindings For RecyclerView'
-published: false
 ---
 
 ## VIEW BINDING FOR RECYCLERVIEWS WITH MULTIPLE ITEMS LAYOUT
@@ -297,15 +296,15 @@ fun setupList(){
 
 We can add new, different layouts pretty easily:
 
-1. create a new _list_item_layout.xml_
+1. create a new <i>list_item_layout.xml</i>
 2. create a class implementing `MultiListItem`
 3. create a new ViewHolder with the new layout's binding
-4. Edit `onCreateViewHolder` and `onBindViewHolder` to link all of this
+4. Edit `onCreateViewHolder()` and `onBindViewHolder()` to link all of this
 
 
 #### Esempio layout xml
 
-_fist_item_layout.xml_
+<i>first_item_layout.xml</i>
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -392,7 +391,7 @@ First layout result:
 ![item layout](first_item_layout.png)
 
 
-_second_item_layout.xml_
+<i>second_item_layout.xml</i>
 
 [details="Second layout"]
 
@@ -488,9 +487,9 @@ abstract class GenericHolder(binding: ViewBinding) :
 Trying an implementation with our old Holder
 
 ```kotlin
-class SecondGenericHolder(tBinding: SecondListItemBinding): GenericHolder(tBinding){
+class SecondGenericHolder(sBinding: SecondListItemBinding): GenericHolder(sBinding){
 
-    private val binding: SecondListItemBinding = tBinding
+    private val binding: SecondListItemBinding = sBinding
 
     override fun bind(item: MultiListItem, clickListener: (ListResponse) -> Unit) {
         binding.cvFirstItem.setOnClickListener { clickListener(
@@ -505,8 +504,26 @@ class SecondGenericHolder(tBinding: SecondListItemBinding): GenericHolder(tBindi
 }
 ```
 
-Inflate is also a problem because of the `ViewBinding` interface, which incapsulate only the `getRoot()` function. 
-This is a problem because we can't make for example `onCreateViewHolder()` more generic: the `inflate()` function is generated in each LayoutNameBinding implementation.
+Inflate is also a problem because of the `ViewBinding` interface, which encapsulates only the `getRoot()` function. 
+
+```java
+package androidx.viewbinding;
+
+import android.view.View;
+import androidx.annotation.NonNull;
+
+/** A type which binds the views in a layout XML to fields. */
+public interface ViewBinding {
+    /**
+     * Returns the outermost {@link View} in the associated layout file. If this binding is for a
+     * {@code <merge>} layout, this will return the first view inside of the merge tag.
+     */
+    @NonNull
+    View getRoot();
+}
+```
+
+We can't make for example `onCreateViewHolder()` more generic: the `inflate()` function is generated in each LayoutNameBinding implementation.
 
 ```kotlin
 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -514,6 +531,7 @@ override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.
 
         when (viewType) {
             TYPE_PAIR -> {
+                // ViewBinding has no inflate() method
                 val pairBinding =
                     SecondListItemBinding.inflate(layoutInflater, parent, false)
                 return ThirdHolder(pairBinding)
@@ -527,8 +545,8 @@ A lot more could be written, but that would go better in another article.
 
 What are some alternatives to RecyclerViews?
 
-!!! [fa=fa-android /] [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/**ListAdapter**) is a new class that requires less code and makes DiffUtils easier
+!!!! [fa=fa-android /] [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/**ListAdapter**) is a new class that requires less code and makes DiffUtils easier
   
-!!! [fa=fa-android /] [Jetpack Compose](https://developer.android.com/jetpack/compose/tutorial) will probably replace every part of the Android UI creation
+!!!! [fa=fa-android /] [Jetpack Compose](https://developer.android.com/jetpack/compose/tutorial) will probably replace every part of the Android UI creation
 
-!!! [fa=fa-book /] There are also various third-party libraries, such as Airbnb [epoxy](https://github.com/airbnb/epoxy)
+!!!! [fa=fa-book /] There are also various third-party libraries, such as Airbnb [epoxy](https://github.com/airbnb/epoxy)
