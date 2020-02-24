@@ -1,12 +1,12 @@
 ---
-title: 'Multiple View Bindings For RecyclerView'
+title: 'Managing multiple list items layouts with Viewbinding'
 highlight:
     theme: darkula
 shortcode-core:
     load_fontawesome: true
 ---
 
-## [center]MANAGING MULTIPLE LAYOUTS IN LISTS WITH VIEWBINDING[/center]
+## [center]MANAGING MULTIPLE LIST ITEMS LAYOUTS WITH VIEWBINDING[/center]
 [center][color=green]Marco Biasin[/color] - **February 24, 2020**[/center]
 
 
