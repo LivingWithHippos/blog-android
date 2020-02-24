@@ -134,7 +134,7 @@ data class PoetAndQuote(val nameAndQuote: Pair<String,String>, override val type
 data class Poet(val name: String, override val type: Int = TYPE_SINGLE): MultiListItem
 ```
 
-- Write the xml layout of each RecyclerView's item. See here for the one used in the project (or visit the repo)
+- Write the xml layout of each RecyclerView's item. See here for the one used in the project (or visit the [repo](https://github.com/LivingWithHippos/android-playground/tree/master/ViewBindList))
 
 - Our ViewHolders must receive the correct ViewBinding corresponding to the just-created xml layout (layout_name.xml -> LayoutNameBinding) and initialize it. Re-build the project if you do not see the bindings in the auto-complete menu. _clicklistener is just a function used as callback, see [here](https://kotlinlang.org/docs/reference/lambdas.html#higher-order-functions-and-lambdas) to learn a little about higher-order function. It's optional, but you almost always need some feedback from taps on a list.
 
@@ -305,7 +305,7 @@ We can add new, different layouts pretty easily:
 
 #### Esempio layout xml
 
-<i>first_item_layout.xml</i>
+[details="first_item_layout.xml"]
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -387,14 +387,13 @@ We can add new, different layouts pretty easily:
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 ```
+[/details]
+
 First layout result:
 
 ![item layout](first_item_layout.png)
 
-
-<i>second_item_layout.xml</i>
-
-[details="Second layout"]
+[details="second_item_layout.xml"]
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -543,6 +542,8 @@ override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.
 ```
 
 A lot more could be written, but that would go better in another article.
+
+#### Useful Links
 
 What are some alternatives to RecyclerViews?
 
