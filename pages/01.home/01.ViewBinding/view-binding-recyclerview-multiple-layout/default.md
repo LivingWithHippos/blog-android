@@ -3,6 +3,7 @@ title: 'Multiple View Bindings For RecyclerView'
 ---
 
 ## VIEW BINDING FOR RECYCLERVIEWS WITH MULTIPLE ITEMS LAYOUT
+[center][color=green]Marco Biasin[/color] - **February 24, 2020**[/center]
 
 
 !!! [[fa=fa-android /] Android Official Page on RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview)
