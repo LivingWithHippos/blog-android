@@ -457,9 +457,15 @@ First layout result:
 
 [/details]
 
-#### The Result
+#### Results
+
+This is the list shown
 
 ![list layout](result.jpg)
+
+And this is the log of the clicks on the list
+
+![items tap](logcat.png)
 
 #### What now?
 
