@@ -387,7 +387,7 @@ _fist_item_layout.xml_
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 ```
-Risultato del primo layout:
+First layout result:
 
 ![item layout](first_item_layout.png)
 
@@ -456,34 +456,27 @@ _second_item_layout.xml_
 
 #### The Result
 
-![item layout](result.jpg)
+![list layout](result.jpg)
 
-#### Miglioramenti
+#### What now?
 
-il percorso dei binding generati è 
-
-/app/build/generated/data_binding_base_class_source_out/debug/[your package]/databinding/
-
-andando a vedere 
-public final class FirstListItemBinding implements ViewBinding
-
-invece di ritornare una string apossiamo usare una inWterfaccia
+We can try and make this more generic. 
+Instead of our clickListener returning a String we can use an interface
 
 ```kotlin
-// this interface is used to return every kind of object implementing it
+// this interface can be used to return every kind of object implementing it
 interface  ListResponse
 ```
 
-ed un altra per il listener del click
+and another one to be implemented by the listener, be it an Activity or a Fragment
 
 ```kotlin
-// this interface must be implemented in fragment/ listener listening to taps on lists and passed to the adapter constructor
+// this interface must be implemented in fragment/ listener listening to events on lists and passed to the adapter constructor
 interface ListClickListener {
     fun onListClick(response: ListResponse)
 }
 ```
-
-// creiamo un generico holder
+A generic holder could be like this
 
 ```kotlin
 abstract class GenericHolder(binding: ViewBinding) :
@@ -492,23 +485,28 @@ abstract class GenericHolder(binding: ViewBinding) :
     abstract fun bind(item: MultiListItem, onListClick: (ListResponse) -> Unit)
 }
 ```
-Impklementiamo con un ipotetico terzo holder
+Trying an implementation with our old Holder
 
 ```kotlin
-class ThirdHolder(tBinding:SecondListItemBinding ): GenericHolder(tBinding){
+class SecondGenericHolder(tBinding: SecondListItemBinding): GenericHolder(tBinding){
 
     private val binding: SecondListItemBinding = tBinding
 
-    override fun bind(item: MultiListItem, onListClick: (ListResponse) -> Unit) {
-        binding.cvFirstItem.setOnClickListener { onListClick(IntResponse(item.type)) }
+    override fun bind(item: MultiListItem, clickListener: (ListResponse) -> Unit) {
+        binding.cvFirstItem.setOnClickListener { clickListener(
+            IntResponse(
+                item.type
+            )
+        ) }
     }
 
-    data class IntResponse(val response: Int): ListResponse
+    data class IntResponse(val response: Int):
+        ListResponse
 }
 ```
 
-ci sarebbero ancora da aggiungere  gli agganci nella activity e la gestinoe nell adapter di tutto ciò, ma probvabimlente verrà spostato su un altro articolo.
-inoltre ce un problema con
+Inflate is also a problem because of the `ViewBinding` interface, which incapsulate only the `getRoot()` function. 
+This is a problem because we can't make for example `onCreateViewHolder()` more generic: the `inflate()` function is generated in each LayoutNameBinding implementation.
 
 ```kotlin
 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -524,7 +522,13 @@ override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.
         }
     }
 ```
-poichè il metodo inflate è presente solo nella implementazione del ViewBinding, pertanato non è possibile generalizzarlo
-e bisognere chimarlo separamente per ogni classe visto che è legato al layout.
 
-Magari un giorno google renderà meno laborioso creare liste
+A lot more could be written, but that would go better in another article.
+
+What are some alternatives to RecyclerViews?
+
+!!! [fa=fa-android /] [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/**ListAdapter**) is a new class that requires less code and makes DiffUtils easier
+  
+!!! [fa=fa-android /] [Jetpack Compose](https://developer.android.com/jetpack/compose/tutorial) will probably replace every part of the Android UI creation
+
+!!! [fa=fa-book /] There are also various third-party libraries, such as Airbnb [epoxy](https://github.com/airbnb/epoxy)
