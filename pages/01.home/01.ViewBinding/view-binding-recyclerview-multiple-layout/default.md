@@ -465,7 +465,14 @@ This is the list shown
 
 And this is the log of the clicks on the list
 
-![items tap](logcat.png)
+```
+2020-02-24 12:09:10.788 7939-7939/dev.biasin.playground.viewbindlist D/MainActivity: Clicked author Aimaro Monaco dei Corbizzi
+2020-02-24 12:09:11.235 7939-7939/dev.biasin.playground.viewbindlist D/MainActivity: Clicked author Bosone da Gubbio
+2020-02-24 12:09:13.012 7939-7939/dev.biasin.playground.viewbindlist D/MainActivity: Clicked author Dante Alighieri
+2020-02-24 12:09:13.276 7939-7939/dev.biasin.playground.viewbindlist D/MainActivity: Clicked author Alessandro da Sant'Elpidio
+2020-02-24 12:09:16.844 7939-7939/dev.biasin.playground.viewbindlist D/MainActivity: Clicked author Aimaro Monaco dei Corbizzi
+2020-02-24 12:09:17.108 7939-7939/dev.biasin.playground.viewbindlist D/MainActivity: Clicked author Giovanni Boccaccio
+```
 
 #### What now?
 
