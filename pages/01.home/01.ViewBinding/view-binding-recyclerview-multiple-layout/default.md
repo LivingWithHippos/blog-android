@@ -2,7 +2,7 @@
 title: 'Multiple View Bindings For RecyclerView'
 ---
 
-## VIEW BINDING FOR RECYCLERVIEWS WITH MULTIPLE ITEMS LAYOUT
+## MANAGING MULTIPLE LAYOUTS IN LISTS WITH VIEWBINDING
 [center][color=green]Marco Biasin[/color] - **February 24, 2020**[/center]
 
 
@@ -134,7 +134,7 @@ data class PoetAndQuote(val nameAndQuote: Pair<String,String>, override val type
 data class Poet(val name: String, override val type: Int = TYPE_SINGLE): MultiListItem
 ```
 
-- Write the xml layout of each RecyclerView's item. See here for the one used in the project (or visit the [repo](https://github.com/LivingWithHippos/android-playground/tree/master/ViewBindList))
+- Write the xml layout of each RecyclerView's item. See [here](#layouts) for the one used in the project (or visit the [repo](https://github.com/LivingWithHippos/android-playground/tree/master/ViewBindList))
 
 - Our ViewHolders must receive the correct ViewBinding corresponding to the just-created xml layout (layout_name.xml -> LayoutNameBinding) and initialize it. Re-build the project if you do not see the bindings in the auto-complete menu. _clicklistener is just a function used as callback, see [here](https://kotlinlang.org/docs/reference/lambdas.html#higher-order-functions-and-lambdas) to learn a little about higher-order function. It's optional, but you almost always need some feedback from taps on a list.
 
@@ -303,7 +303,7 @@ We can add new, different layouts pretty easily:
 4. Edit `onCreateViewHolder()` and `onBindViewHolder()` to link all of this
 
 
-#### Esempio layout xml
+#### <a id="layouts"></a>XML Layouts
 
 [details="first_item_layout.xml"]
 
