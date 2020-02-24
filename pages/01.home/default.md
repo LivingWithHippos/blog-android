@@ -18,5 +18,5 @@ This blog will contain guides, tips and tricks related to Android development. I
 * [Managing multiple list items layouts with Viewbinding](01.ViewBinding/view-binding-recyclerview-multiple-layout/default.md)
 
 [center]
-![Avatar](avatar_02_01.png)
+![Avatar](avatar_02_01.png?resize=400)
 [/center]
