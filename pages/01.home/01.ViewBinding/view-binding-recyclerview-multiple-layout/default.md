@@ -131,7 +131,7 @@ interface MultiListItem {
     val type: Int
 }
 ```
-In this example a Pair<String, String> and a String are used as items:
+In this example a `Pair<String, String>` and a `String` are used as items:
 
 ```kotlin
 data class PoetAndQuote(val nameAndQuote: Pair<String,String>, override val type: Int = TYPE_PAIR): MultiListItem
@@ -165,7 +165,7 @@ class FirstHolder(fBinding: FirstListItemBinding) :
 ```
 
 Here the first element of the `Pair<String, String>` is returned when tapping on the CardView.
-'with' and 'also' are [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html) and are also optional, they can be avoided with a more classic:
+`with` and `also` are [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html) and are also optional, they can be avoided with a more classic:
 
 
 ```kotlin
