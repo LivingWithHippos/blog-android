@@ -164,7 +164,7 @@ class FirstHolder(fBinding: FirstListItemBinding) :
 }
 ```
 
-Here the first element of the 'Pair<String, String>' is returned when tapping on the CardView.
+Here the first element of the `Pair<String, String>` is returned when tapping on the CardView.
 'with' and 'also' are [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html) and are also optional, they can be avoided with a more classic:
 
 
