@@ -16,7 +16,7 @@ There can be various reasons to do this, usually showing different states for th
 <div id="setup"/>
 #### The Setup
 
-Add ViewBinding to your app's `build.gradle` (see [here](https://marco.biasin.dev/home/viewbinding/view-binding-introduction) for an introduction). For completeness these are my Gradle files:
+Add ViewBinding to your app's `build.gradle` (see [here](../../view-binding-introduction) for an introduction). For completeness these are my Gradle files:
 
 [details="build.gradle (app)"]
 
@@ -231,8 +231,9 @@ Lastly the items and the click listener must be passed to their ViewHolder in `o
 And here are the last loose variables/classes:
 
 ```kotlin
-const val TYPE_PAIR = 0
-const val TYPE_SINGLE = 1
+// we can use the layouts resources
+const val TYPE_PAIR = R.layout.first_list_item
+const val TYPE_SINGLE = R.layout.second_list_item
 
 class NoSuchListItemType(message: String) : RuntimeException(message)
 ```
