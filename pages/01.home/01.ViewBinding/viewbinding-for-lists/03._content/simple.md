@@ -393,7 +393,7 @@ We can add new, different layouts pretty easily:
 
 First layout result:
 
-![item layout](first_item_layout.png?resize=400)
+![item layout](first_item_layout.png?resize=380)
 
 [details="second_item_layout.xml"]
 
