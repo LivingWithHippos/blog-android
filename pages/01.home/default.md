@@ -14,8 +14,8 @@ This blog will contain guides, tips and tricks related to Android development. I
 
 ### TABLE OF CONTENTS
 
-* [View Binding, An Introduction](01.ViewBinding/view-binding-introduction/default.md)
-* [Managing multiple list items layouts with Viewbinding](01.ViewBinding/view-binding-recyclerview-multiple-layout/default.md)
+* [View Binding, An Introduction](viewbinding/view-binding-introduction)
+* [Managing multiple list items layouts with Viewbinding](viewbinding/viewbinding-for-lists)
 
 [center]
 ![Avatar](avatar_02_01.png?resize=400)
