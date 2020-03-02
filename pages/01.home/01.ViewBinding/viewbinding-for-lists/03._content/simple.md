@@ -460,7 +460,7 @@ First layout result:
 
 This is the list shown
 
-![list layout](result.jpg)
+![list layout](result.jpg?resize=400)
 
 And this is the log of the clicks on the list
 
