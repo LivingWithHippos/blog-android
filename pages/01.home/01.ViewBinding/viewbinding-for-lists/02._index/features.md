@@ -1,5 +1,5 @@
 ---
-title: index
+title: Index
 class: 'offset-box small'
 features:
     -
