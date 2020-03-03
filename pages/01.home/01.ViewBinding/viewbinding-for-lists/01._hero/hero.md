@@ -1,6 +1,6 @@
 ---
 title: showcase
-menu: Home
+menu: Top
 hero_classes: 'parallax text-dark'
 hero_image: banner.png
 ---
