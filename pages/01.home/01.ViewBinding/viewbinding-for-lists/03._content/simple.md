@@ -1,5 +1,6 @@
 ---
 title: content
+menu: Content
 ---
 
 <div id="intro"/>
