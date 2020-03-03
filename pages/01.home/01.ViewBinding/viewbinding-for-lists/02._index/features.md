@@ -1,5 +1,6 @@
 ---
-title: Index
+title: index
+menu: Index
 class: 'offset-box small'
 features:
     -
