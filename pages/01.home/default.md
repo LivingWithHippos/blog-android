@@ -2,7 +2,7 @@
 title: Android
 ---
 
-# ANDROID IN BITS
+# [center]ANDROID IN BITS[/center]
 
 > I will spend my last dying breath if I need to, and I will spend every penny of Apple’s $40 billion in the bank, to right this wrong. I’m going to destroy Android, because it’s a stolen product. - Steve Jobs
 
