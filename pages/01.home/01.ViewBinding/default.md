@@ -9,4 +9,4 @@ order_manual: ''
 * [View Binding, An Introduction](./introduction)
 * [View Binding For RecyclerViews with Multiple Items Layout](./viewbinding-for-lists)
 
-![Your personal Android Worker](avatar_03_01.PNG)
+[center]![Your personal Android Worker](avatar_03_01.PNG)[/center]
