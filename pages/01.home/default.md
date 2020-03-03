@@ -15,7 +15,7 @@ This blog will contain guides, tips and tricks related to Android development. I
 ### TABLE OF CONTENTS
 
 * [View Binding](viewbinding/)
-    * [View Binding, An Introduction](viewbinding/view-binding-introduction)
+    * [View Binding, An Introduction](viewbinding/introduction)
     * [Managing multiple list items layouts with Viewbinding](viewbinding/viewbinding-for-lists)
 
 [center]
