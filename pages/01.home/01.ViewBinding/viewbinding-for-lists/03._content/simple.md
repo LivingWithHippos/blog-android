@@ -17,7 +17,7 @@ There can be various reasons to do this, usually showing different states for th
 <div id="setup"/>
 #### The Setup
 
-Add ViewBinding to your app's `build.gradle` (see [here](../../view-binding-introduction) for an introduction). For completeness these are my Gradle files:
+Add ViewBinding to your app's `build.gradle` (see [here](../../introduction) for an introduction). For completeness these are my Gradle files:
 
 [details="build.gradle (app)"]
 
