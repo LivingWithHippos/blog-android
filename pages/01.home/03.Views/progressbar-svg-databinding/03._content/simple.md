@@ -97,7 +97,7 @@ We need to set the correct id in the correct order for every item, to get it rec
 
 [clip](https://developer.android.com/guide/topics/resources/drawable-resource#Clip) will show our partial progress on top of the background image.
 
-!! [fa=fa-android /] Tip: vertical progress bar are evil and Android does not support them, But using these parameters you can easily create one
+! [fa=fa-android /] Tip: vertical progress bar are evil and Android does not support them, But using these parameters you can easily create one
 
 ### Manage colors with Kotlin's Extensions and Databinding
 
