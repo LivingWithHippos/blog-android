@@ -177,7 +177,7 @@ fun ProgressBar.setProgressColor(color: Int) {
 We can add new extensions easily:
     
 * Secondary progress bar color
-* 
+
 ```kotlin
 @BindingAdapter("secondaryProgressColor")
 fun ProgressBar.setSecondaryProgressColor(color: Int) {
@@ -191,7 +191,7 @@ fun ProgressBar.setSecondaryProgressColor(color: Int) {
 	app:secondaryProgressColor="@{@color/free_red}" />
 ```
   
-[center] ![determinate progress bar result](progress_determinate_secondary_01.webm?resize=400) [/center]
+[center] ![determinate progress bar result](progress_determinate_secondary.webm?resize=400) [/center]
     
     
 <div id="layouts"/>
