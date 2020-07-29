@@ -17,6 +17,7 @@ This blog will contain guides, tips and tricks related to Android development. I
 * [View Binding](viewbinding/)
     * [View Binding, An Introduction](viewbinding/introduction)
     * [Managing multiple list items layouts with Viewbinding](viewbinding/viewbinding-for-lists)
+* [Views Stuff](views/)
 
 [center]
 ![Avatar](avatar_02_01.png?resize=400)
