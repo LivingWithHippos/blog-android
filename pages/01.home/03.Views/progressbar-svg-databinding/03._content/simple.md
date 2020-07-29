@@ -361,8 +361,11 @@ fragment_layout.xml
 #### Useful Links
 
 Vectors for your app:
-fa-images
+
 !!!! [fa=fas-images /] [Icon Monstr](https://iconmonstr.com/) 
+    
 !!!! [fa=fas-images /] [SVG Repo](https://www.svgrepo.com/) 
+    
 !!!! [fa=far-images /] [Icons Repo](https://iconsrepo.com/) 
+    
 !!!! [fa=far-images /] [Game Icons](https://game-icons.net/) 
