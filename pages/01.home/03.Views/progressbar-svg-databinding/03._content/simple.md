@@ -360,10 +360,9 @@ fragment_layout.xml
 
 #### Useful Links
 
-
-!!!! [fa=fa-android /] [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/**ListAdapter**) is a new class that requires less code and makes DiffUtils easier
-  
-!!!! [fa=fa-android /] [Jetpack Compose](https://developer.android.com/jetpack/compose/tutorial) will probably replace every part of the Android UI creation
-
-!!!! [fa=fa-book /] There are also various third-party libraries, such as Airbnb [epoxy](https://github.com/airbnb/epoxy)
-
+Vectors for your app:
+fa-images
+!!!! [fa=fas-images /] [Icon Monstr](https://iconmonstr.com/) 
+!!!! [fa=fas-images /] [SVG Repo](https://www.svgrepo.com/) 
+!!!! [fa=far-images /] [Icons Repo](https://iconsrepo.com/) 
+!!!! [fa=far-images /] [Game Icons](https://game-icons.net/) 
