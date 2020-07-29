@@ -77,9 +77,11 @@ Let's take a look at the code
 My vector, replace it with yours. The same one is used on all of the code because the bottom one ("unprogressed" or background) will always be visible. If you use another image it won't get hidden correctly by the progress, unless they're exactly the same shape/ progressively bigger/ you're showing both on purpose etc.
 
 ```xml
-android:id="@android:id/background"
-android:id="@android:id/secondaryProgress"
-android:id="@android:id/progress"
+<
+    android:id="@android:id/background"
+    android:id="@android:id/secondaryProgress"
+    android:id="@android:id/progress"
+>
 ```
 
 We need to set the correct id for every item to get it recognized by the system
