@@ -362,10 +362,10 @@ fragment_layout.xml
 
 Vectors for your app:
 
-!!!! [fa=fas-images /] [Icon Monstr](https://iconmonstr.com/) 
+!!!! [fa=fa-images /] [Icon Monstr](https://iconmonstr.com/) 
     
-!!!! [fa=fas-images /] [SVG Repo](https://www.svgrepo.com/) 
+!!!! [fas=fa-images /] [SVG Repo](https://www.svgrepo.com/) 
     
-!!!! [fa=far-images /] [Icons Repo](https://iconsrepo.com/) 
+!!!! [far=fa-images /] [Icons Repo](https://iconsrepo.com/) 
     
 !!!! [fa=far-images /] [Game Icons](https://game-icons.net/) 
