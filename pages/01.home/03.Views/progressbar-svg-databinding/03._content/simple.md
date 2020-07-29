@@ -12,7 +12,7 @@ We will be creating a vertical determinate progress bar easily adaptable to our 
 
 !!! [[fa icon=fa-android extras=fab /] Android Official Page on Vector Drawable](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)
 
-!!! [[fa icon=fa-android /] Android Official Page on Progress Bars](https://developer.android.com/reference/android/widget/ProgressBar)
+!!! [[fa icon=fa-android extras=fab /] Android Official Page on Progress Bars](https://developer.android.com/reference/android/widget/ProgressBar)
 
 <div id="setup"/>
 ### Setup
