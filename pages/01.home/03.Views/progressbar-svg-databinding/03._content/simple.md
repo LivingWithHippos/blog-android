@@ -1,6 +1,6 @@
 ---
 title: content
-media_order: 'progress_determinate_01.webm,progressbar_determinate_secondary.webm,progressbar_determinate_shape.webm'
+media_order: 'progress_determinate_01.webm,progressbar_determinate_secondary.webm,progressbar_determinate_shape.webm,progressbar_alternative_01.webm'
 menu: Content
 ---
 
@@ -217,7 +217,7 @@ We check for ScaleDrawable because that's what is used by the vanilla horizontal
     
 [center] ![determinate progress bar result](progressbar_determinate_shape.webm?resize=400) [/center]
     
-As you can see from the video, we need to be careful of the vectors' shape, here we had extra margin.
+As you can see from the video, we need to be careful of the vectors' shape, here we had an extra margin.
     
 [details="Complete extension list"]
     
@@ -280,6 +280,79 @@ fun ProgressBar.setSecondaryProgressDrawable(drawable: Drawable) {
     
  ```
     
+[/details]
+    
+    
+Another complete example:
+    
+[center] ![determinate progress bar result](progressbar_alternative_01.webm?resize=400) [/center]!
+    
+[details="And its code"]
+  
+    `download_progressbar.xml`
+    
+ ```xml
+    <?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@android:id/background"
+        android:drawable="@drawable/icon_mountains">
+
+    </item>
+    <item android:id="@android:id/secondaryProgress">
+        <clip
+            android:clipOrientation="horizontal"
+            android:drawable="@drawable/icon_mountains"
+            android:gravity="right" />
+    </item>
+    <item android:id="@android:id/progress">
+        <clip
+            android:clipOrientation="vertical"
+            android:drawable="@drawable/icon_mountains"
+            android:gravity="bottom" />
+    </item>
+</layer-list>
+ ```
+    
+    `fragment_layout.xml`
+    
+ ```xml
+    <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:indeterminate="false"
+            android:max="100"
+            android:minWidth="300dp"
+            android:minHeight="300dp"
+            android:progress="30"
+            android:progressDrawable="@drawable/download_progressbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:progressColor="@{@color/streaming_background}"
+            app:secondaryProgressColor="@{@color/free_red}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
+ ```
 [/details]
     
 <div id="layouts"/>
