@@ -29,7 +29,7 @@ android {
 
 ```
 
-I set minSDK to 24 because it adds some vectors stuff, I think we can set it as low as 21.
+I set minSDK to 24 because it adds some vectors stuff, but I think it could be set it as low as 21.
 
 Add the vector to your `res/drawawble` folder. Right click on it -> New -> Vector Asset -> choose "local file" and pick your file (`icon_arrows` in this example).
 
@@ -122,6 +122,7 @@ fun ProgressBar.setProgressColor(color: Int) {
     
 `mutate()` will avoid editing the color of every instance of the drawable, it's needed because in this case we're using the same one three times.
 
+This extension is useful because there's no easy way to change the drawables' colors in the layer list.
 
 ### Add the progress bar to the Layout
 
@@ -198,12 +199,13 @@ fun ProgressBar.setSecondaryProgressColor(color: Int) {
 @BindingAdapter("primaryProgressDrawable")
 fun ProgressBar.setPrimaryProgressDrawable(drawable: Drawable) {
     val progressBarLayers = this.progressDrawable as LayerDrawable
-    val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress)
-    if (oldDrawable is ClipDrawable)
-        oldDrawable.drawable = drawable
-    else
-        if (oldDrawable is ScaleDrawable)
-            oldDrawable.drawable = drawable
+    when (val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress)) {
+        is ClipDrawable -> oldDrawable.drawable = drawable
+        is ScaleDrawable -> oldDrawable.drawable = drawable
+        is InsetDrawable -> oldDrawable.drawable = drawable
+        // ShapeDrawable is a generic shape and does not have drawables
+        // is ShapeDrawable ->
+    }
 }
  ```
 ```xml
