@@ -7,7 +7,7 @@ menu: Content
 <div id="intro"/>
 ## Why Vectors?
 
-Vectors can scale perfectly at any size and are perfect for simple images like logos and symbols around your app, and data binding makes adding functionalities to Views really easy.
+Vectors can scale correctly at any size and are perfect for simple images like logos and symbols around your app, and data binding makes adding functionalities to Views really easy.
 We will be creating a vertical determinate progress bar easily adaptable to our needs.
 
 !!! [[fa=fa-android /] Android Official Page on Vector Drawable](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)
@@ -29,16 +29,16 @@ android {
 
 ```
 
-I set minSDK to 24 because it adds some vectors stuff, I think it can be set as low as 21.
+I set minSDK to 24 because it adds some vectors stuff, I think we can set it as low as 21.
 
 Add the vector to your `res/drawawble` folder. Right click on it -> New -> Vector Asset -> choose "local file" and pick your file (`icon_arrows` in this example).
 
-I personally recommend [Inkscape](https://inkscape.org/) to create and edit vectors.
+I recommend [Inkscape](https://inkscape.org/) to create and edit vectors.
 
 <div id="build"/>
 ### ProgressBar XML file
 
-- A progress bar has different Drawables set for every state: progress, secondary progress, "unprogressed". The determinate and Indeterminate Drawables are also separated. 
+- A progress bar has different Drawables set for every state: progress, secondary progress, background. The determinate and Indeterminate Drawables are also separated. 
 
 They can be defined in a single file: create a new Drawable (`download-progressbar.xml` here) and copy-paste this:
 
@@ -70,13 +70,13 @@ From the [documentation](https://developer.android.com/guide/topics/resources/dr
 > 
 > Each drawable is represented by an <item> element inside a single <layer-list> element.
 
-Let's take a look at the code
+Let's take a look at the code:
 
 ```xml
  android:drawable="@drawable/icon_arrows"
 ```
 
-My vector, replace it with yours. The same one is used on all of the code because the bottom one ("unprogressed" or background) will always be visible. If you use another image it won't get hidden correctly by the progress, unless they're exactly the same shape/ progressively bigger/ you're showing both on purpose etc.
+My drawable, replace it with yours. The same one is used on all of the code because the bottom one ("unprogressed" or background) will always be visible. If you use another image, it won't get hidden correctly by the progress unless they're exactly the same shape/ progressively bigger/ you're showing both on purpose, etc (there's an example down here).
 
 ```xml
 <item android:id="@android:id/background"
@@ -86,7 +86,7 @@ My vector, replace it with yours. The same one is used on all of the code becaus
     android:id="@android:id/progress" >
 ```
 
-We need to set the correct id in the correct order for every item, to get it recognized by the system
+We need to set the correct id in the right order for every item:
 
 ```xml
 <clip
@@ -99,7 +99,7 @@ We need to set the correct id in the correct order for every item, to get it rec
 
 [clip](https://developer.android.com/guide/topics/resources/drawable-resource#Clip) will show our partial progress on top of the background image.
 
-! [fa=fa-android /] Tip: vertical progress bar are evil and Android does not support them, but using these parameters you can easily create one
+! [fa=fa-android /] Tip: vertical progress bars are evil, and Android does not support them, but using these parameters you can easily create one
 
 ### Manage colors with Kotlin's Extensions and Databinding
 
@@ -118,9 +118,9 @@ fun ProgressBar.setProgressColor(color: Int) {
 ```
 
 
-`@BindingAdapter("progressColor")`: this annotation will process `progressColor` (you can change it) when found in a progress bar xml and execute the code
+`@BindingAdapter("progressColor")`: this annotation will process `progressColor` (you can change it) when found in a progress bar XML and execute the code
     
-`mutate()` will avoid editing the color of every instance of the drawable, it's needed because in this case we're using the same one three times
+`mutate()` will avoid editing the color of every instance of the drawable, it's needed because in this case we're using the same one three times.
 
 
 ### Add the progress bar to the Layout
@@ -211,13 +211,13 @@ fun ProgressBar.setPrimaryProgressDrawable(drawable: Drawable) {
 	app:primaryProgressDrawable="@{@drawable/icon_hexagon}" />
 ```
 
-We check for ScaleDrawable because that's what is used by the vanilla horizontal progressbar. If you don't set an `android:progressDrawable` your image will be stretched instead of clipped, and it will (probably) look strange.
+We check for ScaleDrawable because that's what is used by the vanilla horizontal progress bar. If you don't set an `android:progressDrawable`, your image will be stretched instead of clipped, and it will (probably) look strange.
     
- **Important:** change the color **after** changing the drawable, otherwise the color will get overwritten.
+ **Important:** change the color **after** changing the drawable; otherwise, it will get overwritten.
     
 [center] ![determinate progress bar result](progressbar_determinate_shape.webm?resize=400) [/center]
     
-As you can see from the video, we need to be careful of the vectors' shape, here we had an extra margin.
+As you can see from the video, we need to be careful of the vectors' shape, as the hexagon was taller than the triangles, and it looked like it started sooner (they had the same progress number).
     
 [details="Complete extension list"]
     
@@ -283,7 +283,7 @@ fun ProgressBar.setSecondaryProgressDrawable(drawable: Drawable) {
 [/details]
     
 
-
+<br>
 Another complete example:
     
 [center] ![determinate progress bar result](progressbar_alternative_01.webm?resize=400) [/center]
