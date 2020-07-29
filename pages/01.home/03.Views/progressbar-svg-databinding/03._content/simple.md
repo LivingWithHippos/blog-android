@@ -29,6 +29,8 @@ android {
 
 ```
 
+I set minSDK to 24 because it adds some vectors stuff, I think it can be set as low as 21.
+
 Add the vector to your `res/drawawble` folder. Right click on it -> New -> Vector Asset -> choose "local file" and pick your file (`icon_arrows` in this example).
 
 I personally recommend [Inkscape](https://inkscape.org/) to create and edit vectors.
@@ -157,24 +159,17 @@ fun ProgressBar.setProgressColor(color: Int) {
 </layout>
 ```
 
-`<layout ...`
+`<layout ...`: remember to add data-binding to your layout!
 
-remember to add data-binding to your layout!
+`style="@style/Widget.AppCompat.ProgressBar.Horizontal"`: just use any `ProgressBar.*` style, we will be overriding most of it anyway.
 
-`style="@style/Widget.AppCompat.ProgressBar.Horizontal"`
+`android:progress="50"`: you will probably use a custom value passed with data binding such as `android:progress="@{data.progress}"`
 
-Just use any `ProgressBar.*` style, we will be overriding most of it anyway.
-
-`android:progress="50"`
-
-you will probably use a custom value passed with data binding such as `android:progress="@{data.progress}"`
-
-`app:progressColor="@{@color/green_pasture}"`
+`app:progressColor="@{@color/green_pasture}"`: set you progress vector color here
 
 **important:** parameters passed to the `BindingAdapter` needs to be written data-binding style, such as `@{@color/green_pasture}"` or `@{@true}`
-Swap `green_pasture` with your own color.
 
-![determinate progress bar result](progress_determinate_01.webm)
+[center] ![determinate progress bar result](progress_determinate_01.webm) [/center]
 
 <div id="additems"/>
 ### Adding new items
