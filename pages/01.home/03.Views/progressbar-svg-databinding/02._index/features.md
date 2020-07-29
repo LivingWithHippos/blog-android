@@ -16,21 +16,13 @@ features:
         header: Build
         url: '#build'
     -
-        icon: 'fa fa-refresh'
-        header: 'Activity side'
-        url: '#connectall'
-    -
         icon: 'fa fa-plus-circle'
-        header: 'New Items'
-        url: '#additems'
-    -
-        icon: 'fa fa-thumbs-o-up'
-        header: Results
-        url: '#results'
+        header: Extension
+        url: '#addproperties'
     -
         icon: 'fa fa-line-chart'
-        header: 'Conclusions and future work'
-        url: '#future'
+        header: 'Useful Links'
+        url: '#links'
 ---
 
 ## Index
