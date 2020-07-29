@@ -198,18 +198,85 @@ fun ProgressBar.setSecondaryProgressColor(color: Int) {
 @BindingAdapter("primaryProgressDrawable")
 fun ProgressBar.setPrimaryProgressDrawable(drawable: Drawable) {
     val progressBarLayers = this.progressDrawable as LayerDrawable
-    val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress) as ClipDrawable
-    oldDrawable.drawable = drawable
+    val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress)
+    if (oldDrawable is ClipDrawable)
+        oldDrawable.drawable = drawable
+    else
+        if (oldDrawable is ScaleDrawable)
+            oldDrawable.drawable = drawable
 }
  ```
 ```xml
     <ProgressBar...
-	app:secondaryProgressColor="@{@color/free_red}" />
+	app:primaryProgressDrawable="@{@drawable/icon_hexagon}" />
 ```
+
+We check for ScaleDrawable because that's what is used by the vanilla horizontal progressbar. If you don't set an `android:progressDrawable` your image will be stretched instead of clipped, and it will (probably) look strange.
     
- **Important:** change the color after changing the drawable, otherwise the color will get overwritten.
+ **Important:** change the color **after** changing the drawable, otherwise the color will get overwritten.
     
 [center] ![determinate progress bar result](progressbar_determinate_shape.webm?resize=400) [/center]
+    
+As you can see from the video, we need to be careful of the vectors' shape, here we had extra margin.
+    
+    [details="Complete extension list"]
+    ```kotlin
+    @BindingAdapter("backgroundProgressColor")
+fun ProgressBar.setBackgroundProgressColor(color: Int) {
+    val progressBarLayers = progressDrawable as LayerDrawable
+    val progressDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.background).mutate()
+    progressDrawable.setTint(color)
+}
+
+@BindingAdapter("progressColor")
+fun ProgressBar.setProgressColor(color: Int) {
+    val progressBarLayers = progressDrawable as LayerDrawable
+    val progressDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress).mutate()
+    progressDrawable.setTint(color)
+}
+
+@BindingAdapter("secondaryProgressColor")
+fun ProgressBar.setSecondaryProgressColor(color: Int) {
+    val progressBarLayers = progressDrawable as LayerDrawable
+    val progressDrawable =
+        progressBarLayers.findDrawableByLayerId(android.R.id.secondaryProgress).mutate()
+    progressDrawable.setTint(color)
+}
+
+@BindingAdapter("backgroundProgressDrawable")
+fun ProgressBar.setBackgroundProgressDrawable(drawable: Drawable) {
+    val progressBarLayers = this.progressDrawable as LayerDrawable
+    val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.background)
+    if (oldDrawable is ClipDrawable)
+        oldDrawable.drawable = drawable
+    else
+        if (oldDrawable is ScaleDrawable)
+            oldDrawable.drawable = drawable
+}
+
+@BindingAdapter("primaryProgressDrawable")
+fun ProgressBar.setPrimaryProgressDrawable(drawable: Drawable) {
+    val progressBarLayers = this.progressDrawable as LayerDrawable
+    val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress)
+    if (oldDrawable is ClipDrawable)
+        oldDrawable.drawable = drawable
+    else
+        if (oldDrawable is ScaleDrawable)
+            oldDrawable.drawable = drawable
+}
+
+@BindingAdapter("secondaryProgressDrawable")
+fun ProgressBar.setSecondaryProgressDrawable(drawable: Drawable) {
+    val progressBarLayers = this.progressDrawable as LayerDrawable
+    val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.secondaryProgress)
+    if (oldDrawable is ClipDrawable)
+        oldDrawable.drawable = drawable
+    else
+        if (oldDrawable is ScaleDrawable)
+            oldDrawable.drawable = drawable
+}
+    ```
+    [/details]
     
 <div id="layouts"/>
 #### XML Layouts
