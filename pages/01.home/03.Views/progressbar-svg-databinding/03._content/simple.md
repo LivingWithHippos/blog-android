@@ -364,6 +364,10 @@ Vectors for your app:
 
 !!!! [fa=fa-images /] [Icon Monstr](https://iconmonstr.com/) 
     
+!!!! [fa=fas-images /] [Icon Monstr](https://iconmonstr.com/) 
+    
+!!!! [fas=fa-images /] [Icon Monstr](https://iconmonstr.com/) 
+    
 !!!! [fas=fa-images /] [SVG Repo](https://www.svgrepo.com/) 
     
 !!!! [fa=fa-image /] [Icons Repo](https://iconsrepo.com/) 
