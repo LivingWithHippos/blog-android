@@ -15,7 +15,7 @@ We will be creating a vertical determinate progress bar easily adaptable to our 
 !!! [[fa=fa-android /] Android Official Page on Progress Bars](https://developer.android.com/reference/android/widget/ProgressBar)
 
 <div id="setup"/>
-#### The Setup
+### Setup
 
 Add Data Binding to your app's `build.gradle` (see [here](https://developer.android.com/topic/libraries/data-binding/start)). It should be like this:
 
