@@ -7,8 +7,10 @@ menu: Content
 ## Why Vectors?
 
 Vectors can scale perfectly at any size and are perfect for simple images like logos and symbols around your app, and data binding makes adding functionalities to Views really easy.
+We will be creating a vertical determinate progress bar easily adaptable to our needs.
 
 !!! [[fa=fa-android /] Android Official Page on Vector Drawable](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)
+!!! [[fa=fa-android /] Android Official Page on Progress Bars](https://developer.android.com/reference/android/widget/ProgressBar)
 
 <div id="setup"/>
 #### The Setup
@@ -70,7 +72,7 @@ Let's take a look at the code
  android:drawable="@drawable/icon_arrows"
 ```
 
-My vector, replace it with yours. The same one is used on all of the code because the bottom one ("unprogressed" or background) will always be visible. If you use another image it won't get hidden correctly by the progress, unless they're exactly the same shape.
+My vector, replace it with yours. The same one is used on all of the code because the bottom one ("unprogressed" or background) will always be visible. If you use another image it won't get hidden correctly by the progress, unless they're exactly the same shape/ progressively bigger/ you're showing both on purpose etc.
 
 ```xml
 android:id="@android:id/background"
@@ -103,13 +105,14 @@ fun ProgressBar.setProgressColor(color: Int) {
     // get our layer list
     val progressBarLayers = progressDrawable as LayerDrawable
     // find the progress drawable
-    val progressDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress)
+    val progressDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress).mutate()
     // set our color
     progressDrawable.setTint(color)
 }
 ```
 
-the `@BindingAdapter("progressColor")` annotation will process `progressColor` when found in a Progressbar xml and execute the code
+the `@BindingAdapter("progressColor")` annotation will process `progressColor` when found in a progress bar xml and execute the code
+`.mutate()` will avoid editing the color of every instance of the drawable, it's needed because in this case we're using the same one three times
 
 
 ### Add the Progress Bar to Our Layout
@@ -138,8 +141,9 @@ the `@BindingAdapter("progressColor")` annotation will process `progressColor` w
             android:max="100"
             android:minWidth="100dp"
             android:minHeight="100dp"
-            android:progress="@{torrent.progress}"
+            android:progress="30"
             android:progressDrawable="@drawable/download_progressbar"
+            app:progressColor="@{@color/streaming_background}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -148,14 +152,21 @@ the `@BindingAdapter("progressColor")` annotation will process `progressColor` w
 ```
 
 `<layout ...`
+
 remember to add data-binding to your layout!
 
 `style="@style/Widget.AppCompat.ProgressBar.Horizontal"`
 
-!!! [fa=fa-android /] Tip: keep Horizontal even if your bar isn't horizontal, otherwise previews in layout won't work correctly
+Just use any `ProgressBar.*` style, we will be overriding most of it anyway.
 
+`android:progress="50"`
 
-set a style
+you will probably use a custom value passed with data binding such as `android:progress="@{data.progress}"`
+
+`app:progressColor="@{@color/green_pasture}"`
+
+**important:** parameters passed to the `BindingAdapter` needs to be written data-binding style, such as `@{@color/green_pasture}"` or `@{@true}`
+Swap `green_pasture` with your own color.
 
 <div id="additems"/>
 ### Adding new items
