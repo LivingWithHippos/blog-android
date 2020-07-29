@@ -219,7 +219,8 @@ We check for ScaleDrawable because that's what is used by the vanilla horizontal
     
 As you can see from the video, we need to be careful of the vectors' shape, here we had extra margin.
     
-    [details="Complete extension list"]
+[details="Complete extension list"]
+    
     ```kotlin
     @BindingAdapter("backgroundProgressColor")
 fun ProgressBar.setBackgroundProgressColor(color: Int) {
@@ -275,8 +276,9 @@ fun ProgressBar.setSecondaryProgressDrawable(drawable: Drawable) {
         if (oldDrawable is ScaleDrawable)
             oldDrawable.drawable = drawable
 }
-    ```
-    [/details]
+ ```
+    
+[/details]
     
 <div id="layouts"/>
 #### XML Layouts
