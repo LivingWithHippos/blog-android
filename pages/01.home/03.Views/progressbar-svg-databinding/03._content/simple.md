@@ -11,6 +11,7 @@ Vectors can scale perfectly at any size and are perfect for simple images like l
 We will be creating a vertical determinate progress bar easily adaptable to our needs.
 
 !!! [[fa=fa-android /] Android Official Page on Vector Drawable](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)
+
 !!! [[fa=fa-android /] Android Official Page on Progress Bars](https://developer.android.com/reference/android/widget/ProgressBar)
 
 <div id="setup"/>
