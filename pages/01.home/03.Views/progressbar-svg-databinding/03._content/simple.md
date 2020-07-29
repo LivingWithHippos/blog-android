@@ -116,8 +116,7 @@ fun ProgressBar.setProgressColor(color: Int) {
 ```
 
 
-`@BindingAdapter("progressColor")` 
- this annotation will process `progressColor` when found in a progress bar xml and execute the code
+`@BindingAdapter("progressColor")`: this annotation will process `progressColor` (you can change it) when found in a progress bar xml and execute the code
     
 `mutate()` will avoid editing the color of every instance of the drawable, it's needed because in this case we're using the same one three times
 
