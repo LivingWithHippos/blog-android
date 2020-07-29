@@ -38,7 +38,7 @@ I personally recommend [Inkscape](https://inkscape.org/) to create and edit vect
 
 - A progress bar has different Drawables set for every state: progress, secondary progress, "unprogressed". The determinate and Indeterminate Drawables are also separated. 
 
-They can be defined in a single file: create a new Drawable like `download-progressbar.xml` and copy-paste this:
+They can be defined in a single file: create a new Drawable (`download-progressbar.xml` here) and copy-paste this:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -66,7 +66,7 @@ From the [documentation](https://developer.android.com/guide/topics/resources/dr
 
 > A LayerDrawable is a drawable object that manages an array of other drawables. Each drawable in the list is drawn in the order of the list—the last drawable in the list is drawn on top.
 > 
-> Each drawable is represented by an \<item> element inside a single \<layer-list> element.
+> Each drawable is represented by an <item> element inside a single <layer-list> element.
 
 Let's take a look at the code
 
