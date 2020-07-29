@@ -1,6 +1,6 @@
 ---
 title: content
-media_order: progress_determinate_01.webm
+media_order: 'progress_determinate_01.webm,progressbar_determinate_secondary.webm'
 menu: Content
 ---
 
@@ -167,21 +167,33 @@ fun ProgressBar.setProgressColor(color: Int) {
 
 `app:progressColor="@{@color/green_pasture}"`: set you progress vector color here
 
-**important:** parameters passed to the `BindingAdapter` needs to be written data-binding style, such as `@{@color/green_pasture}"` or `@{@true}`
+**important:** parameters passed to the `BindingAdapter` needs to be written data-binding style, such as `@{@color/green_pasture}` or `@{@true}`
 
 [center] ![determinate progress bar result](progress_determinate_01.webm?resize=400) [/center]
 
-<div id="additems"/>
-### Adding new items
+<div id="addproperties"/>
+### Adding other properties
 
-We can add new, different layouts pretty easily:
-
-1. create a new <i>list_item_layout.xml</i>
-2. create a class implementing `MultiListItem`
-3. create a new ViewHolder with the new layout's binding
-4. Edit `onCreateViewHolder()` and `onBindViewHolder()` to link all of this
-
-
+We can add new extensions easily:
+    
+* Secondary progress bar color
+* 
+```kotlin
+@BindingAdapter("secondaryProgressColor")
+fun ProgressBar.setSecondaryProgressColor(color: Int) {
+    val progressBarLayers = progressDrawable as LayerDrawable
+    val progressDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.secondaryProgress).mutate()
+    progressDrawable.setTint(color)
+}
+```
+    
+```xml
+	app:secondaryProgressColor="@{@color/free_red}" />
+```
+  
+[center] ![determinate progress bar result](progress_determinate_secondary_01.webm?resize=400) [/center]
+    
+    
 <div id="layouts"/>
 #### XML Layouts
 
