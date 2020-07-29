@@ -5,8 +5,8 @@ hero_classes: 'parallax text-dark'
 hero_image: banner.png
 ---
 
-# ProgressBar with Vectors
+# Progress bar with vectors
 ## using Data Binding
 
 Android has finally started supporting svg files without converting them to png.
-Use them to create a custom progress bars.
+Use them to create some custom progress bars.
