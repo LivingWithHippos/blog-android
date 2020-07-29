@@ -4,296 +4,158 @@ menu: Content
 ---
 
 <div id="intro"/>
-## Why RecyclerViews?
+## Why Vectors?
 
-RecyclerViews are a powerful and relatively easy way to create lists in Android.
+Vectors can scale perfectly at any size and are perfect for simple images like logos and symbols around your app, and data binding makes adding functionalities to Views really easy.
 
-!!! [[fa=fa-android /] Android Official Page on RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview)
-
-#### Why use different items layout?
-
-There can be various reasons to do this, usually showing different states for the same kind of items or showing different items.
+!!! [[fa=fa-android /] Android Official Page on Vector Drawable](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)
 
 <div id="setup"/>
 #### The Setup
 
-Add ViewBinding to your app's `build.gradle` (see [here](../../introduction) for an introduction). For completeness these are my Gradle files:
-
-[details="build.gradle (app)"]
+Add Data Binding to your app's `build.gradle` (see [here](https://developer.android.com/topic/libraries/data-binding/start)). It should be like this:
 
 ```gradle
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
-
-    viewBinding {
-        enabled = true
+    ...
+    buildFeatures {
+        dataBinding true
     }
-
-    defaultConfig {
-        applicationId "dev.biasin.playground.RecyclerListViewBinding"
-        minSdkVersion 22
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
-}
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    // UI components
-    implementation "com.google.android.material:material:$rootProject.materialVersion"
-    implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayoutVersion"
-    implementation "androidx.cardview:cardview:$rootProject.cardviewVersion"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
-    implementation "androidx.core:core-ktx:$rootProject.core_version"
 }
 
 ```
 
-[/details]
+Add the vector to your `res/drawawble` folder. Right click on it -> New -> Vector Asset -> choose "local file" and pick your file (`icon_arrows` in this example).
 
-
-[details="build.gradle (module)"]
-
-```gradle
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-buildscript {
-    ext.kotlin_version = '1.3.61'
-    repositories {
-        google()
-        jcenter()
-        
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.0-rc03'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
-
-ext {
-    appcompatVersion = '1.1.0'
-    materialVersion = '1.2.0-alpha04'
-    constraintlayoutVersion = '1.1.3'
-    cardviewVersion = '1.0.0'
-    core_version='1.2.0'
-}
-
-```
-
-[/details]
+I personally recommend [Inkscape](https://inkscape.org/) to create and edit vectors.
 
 <div id="build"/>
-### Building the List
+### ProgressBar XML file
 
-- The list passed to the adapter is a generic one since we want to use different items, let's create an interface for that. A variable is used to identify each item type:
+- A progress bar has different Drawables set for every state: progress, secondary progress, "unprogressed". The determinate and Indeterminate Drawables are also separated. 
 
-```kotlin
-interface MultiListItem {
-    val type: Int
-}
+They can be defined in a single file: create a new Drawable like `download-progressbar.xml` and copy-paste this:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@android:id/background"
+        android:drawable="@drawable/icon_arrows">
+
+    </item>
+    <item android:id="@android:id/secondaryProgress">
+        <clip
+            android:clipOrientation="vertical"
+            android:drawable="@drawable/icon_arrows"
+            android:gravity="bottom" />
+    </item>
+    <item android:id="@android:id/progress">
+        <clip
+            android:clipOrientation="vertical"
+            android:drawable="@drawable/icon_arrows"
+            android:gravity="bottom" />
+    </item>
+</layer-list>
 ```
-In this example a Pair<String, String> and a String are used as items:
+From the [documentation](https://developer.android.com/guide/topics/resources/drawable-resource#LayerList)
 
-```kotlin
-data class PoetAndQuote(val nameAndQuote: Pair<String,String>, override val type: Int = TYPE_PAIR): MultiListItem
-data class Poet(val name: String, override val type: Int = TYPE_SINGLE): MultiListItem
-```
+> A LayerDrawable is a drawable object that manages an array of other drawables. Each drawable in the list is drawn in the order of the list—the last drawable in the list is drawn on top.
+> 
+> Each drawable is represented by an \<item> element inside a single \<layer-list> element.
 
-- Write the xml layout of each RecyclerView's item. See [here](#layouts) for the one used in the project (or visit the [repo](https://github.com/LivingWithHippos/android-playground/tree/master/ViewBindList))
+Let's take a look at the code
 
-- Our ViewHolders must receive the correct ViewBinding corresponding to the just-created xml layout (layout_name.xml -> LayoutNameBinding) and initialize it. Re-build the project if you do not see the bindings in the auto-complete menu. _clicklistener is just a function used as callback, see [here](https://kotlinlang.org/docs/reference/lambdas.html#higher-order-functions-and-lambdas) to learn a little about higher-order function. It's optional, but you almost always need some feedback from taps on a list.
-
-
-```kotlin
-class FirstHolder(fBinding: FirstListItemBinding) :
-    RecyclerView.ViewHolder(fBinding.root) {
-
-    private lateinit var content: Pair<String, String>
-
-    private val binding: FirstListItemBinding = fBinding
-
-    fun bind(item: MultiListItem, _clickListener: (String) -> Unit) {
-
-        with(item as PoetAndQuote) {
-            content = this.nameAndQuote
-        }.also {
-            binding.tvName.text = content.first
-            binding.tvDescription.text = content.second
-            binding.cvFirstItem.setOnClickListener { _clickListener(content.first) }
-        }
-    }
-}
+```xml
+ android:drawable="@drawable/icon_arrows"
 ```
 
-Here the first element of the 'Pair<String, String>' is returned when tapping on the CardView.
-'with' and 'also' are [scope functions](https://kotlinlang.org/docs/reference/scope-functions.html) and are also optional, they can be avoided with a more classic:
+My vector, replace it with yours. The same one is used on all of the code because the bottom one ("unprogressed" or background) will always be visible. If you use another image it won't get hidden correctly by the progress, unless they're exactly the same shape.
 
-
-```kotlin
-if(item is PoetAndQuote){
-    content = item.nameAndQuote
-    binding.tvName.text = content.first
-    binding.tvDescription.text = content.second
-    binding.cvFirstItem.setOnClickListener { _clickListener(content.first)
-    }
+```xml
+android:id="@android:id/background"
+android:id="@android:id/secondaryProgress"
+android:id="@android:id/progress"
 ```
 
-- The adapter is the most crucial part of the list, and its constructor takes a list of items and the callback function.
+We need to set the correct id for every item to get it recognized by the system
 
-```kotlin
-class MultiViewBindingAdapter(
-    items: List<MultiListItem>,
-    private val clickListener: (String) -> Unit
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+```xml
+<clip
+            android:clipOrientation="vertical"
+            android:drawable="@drawable/icon_arrows"
+            android:gravity="bottom" />
 ```
-The item list with two accessory functions to get the number of items and their type:
+
+> A drawable defined in XML that clips another drawable based on this Drawable's current level.
+
+[clip](https://developer.android.com/guide/topics/resources/drawable-resource#Clip) will show our partial progress on top of the background image.
+
+!!! [fa=fa-android /] Tip: vertical progress bar are evil and Android does not support them, But using these parameters you can easily create one
+
+### Manage colors with Kotlin's Extensions and Databinding
+
+Kotlin Extensions are ***cool*** and you can do a lot of stuff with them. In this case we can create a new xml parameter for our progressbar to set the color. Create a new `Extension.kt` file and copy-paste this:
 
 ```kotlin
-
-    private var itemList: List<MultiListItem> = items
-
-    override fun getItemCount(): Int = itemList.size
-
-    override fun getItemViewType(position: Int): Int = itemList[position].type 
-
-```
-Function 'onCreateViewHolder' checks the item's type thanks to 'getItemViewType' and the interface 'MultiListItem' and returns the right ViewHolder implementation initialized with the correct binding.
-
-```kotlin
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-
-        when (viewType) {
-            TYPE_PAIR -> {
-                val pairBinding =
-                    FirstListItemBinding.inflate(layoutInflater, parent, false)
-                return FirstHolder(pairBinding)
-            }
-            TYPE_SINGLE -> {
-                val singleBinding =
-                    SecondListItemBinding.inflate(layoutInflater, parent, false)
-                return SecondHolder(singleBinding)
-            }
-            else -> throw NoSuchListItemType("No correspondent binding found for viewType $viewType")
-        }
-    }
-```
-Lastly the items and the click listener must be passed to their ViewHolder in `onBindViewHolder`
-
-```kotlin
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = itemList[position]
-        if (holder is FirstHolder && item is PoetAndQuote)
-            holder.bind(item, clickListener)
-        if (holder is SecondHolder && item is Poet)
-            holder.bind(item, clickListener)
-    }
-
+@BindingAdapter("progressColor")
+fun ProgressBar.setProgressColor(color: Int) {
+    // get our layer list
+    val progressBarLayers = progressDrawable as LayerDrawable
+    // find the progress drawable
+    val progressDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress)
+    // set our color
+    progressDrawable.setTint(color)
 }
 ```
 
-And here are the last loose variables/classes:
+the `@BindingAdapter("progressColor")` annotation will process `progressColor` when found in a Progressbar xml and execute the code
 
-```kotlin
-// we can use the layouts resources
-const val TYPE_PAIR = R.layout.first_list_item
-const val TYPE_SINGLE = R.layout.second_list_item
 
-class NoSuchListItemType(message: String) : RuntimeException(message)
+### Add the Progress Bar to Our Layout
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:indeterminate="false"
+            android:max="100"
+            android:minWidth="100dp"
+            android:minHeight="100dp"
+            android:progress="@{torrent.progress}"
+            android:progressDrawable="@drawable/download_progressbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
 ```
 
-<div id="connectall"/>
-### On the Activity/Fragment Side
+`<layout ...`
+remember to add data-binding to your layout!
 
-A layout manager and an instance of the adapter are needed to create our list
+`style="@style/Widget.AppCompat.ProgressBar.Horizontal"`
 
-```kotlin
-class MainActivity : AppCompatActivity() {
+!!! [fa=fa-android /] Tip: keep Horizontal even if your bar isn't horizontal, otherwise previews in layout won't work correctly
 
-    private lateinit var layoutManager: LinearLayoutManager
-    private lateinit var adapter: MultiViewBindingAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // this is just the activity layout
-        _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setupList()
-    }
-```
-'setupList' makes all the operations needed to initialize our work.
-
-```kotlin
-fun setupList(){
-        // creating our list of MultiListItem
-        val items: MutableList<MultiListItem> = mutableListOf()
-        // adding some items
-        items.add(PoetAndQuote(Pair("Dante Alighieri",
-            "Fatti non foste a viver come bruti ma per seguir virtute e canoscenza")))
-        items.add(PoetAndQuote(Pair("Cecco Angiolieri",
-            "S’i’ fosse foco, arderei ’l mondo; s’i’ fosse vento, lo tempesterei; ")))
-        items.add(PoetAndQuote(Pair("Giovanni Boccaccio",
-            "Viva amore, e muoia soldo.")))
-        items.add(Poet("Alessandro da Sant'Elpidio"))
-        items.add(Poet("Bosone da Gubbio"))
-        items.add(Poet("Aimaro Monaco dei Corbizzi"))
-        // shuffling so their position is different every time we start the app
-        items.shuffle()
-
-        // a layout manager for lists made of rows
-        layoutManager = LinearLayoutManager(this)
-        // this is how the function is passed as a parameter 
-        adapter = MultiViewBindingAdapter(items){ name: String -> poetClicked(name) }
-
-        // assigning them to the RecyclerView with id rvList, defined in the activity layout 
-        binding.rvList.layoutManager = layoutManager
-        binding.rvList.adapter = adapter
-
-    }
-
-    // this will be called on every click on a CardView
-    private fun poetClicked(name: String) {
-        Log.d("MainActivity", "Clicked poet $name")
-    }
-```
+set a style
 
 <div id="additems"/>
 ### Adding new items
