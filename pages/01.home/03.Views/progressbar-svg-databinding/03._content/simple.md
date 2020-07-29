@@ -250,34 +250,37 @@ fun ProgressBar.setSecondaryProgressColor(color: Int) {
 @BindingAdapter("backgroundProgressDrawable")
 fun ProgressBar.setBackgroundProgressDrawable(drawable: Drawable) {
     val progressBarLayers = this.progressDrawable as LayerDrawable
-    val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.background)
-    if (oldDrawable is ClipDrawable)
-        oldDrawable.drawable = drawable
-    else
-        if (oldDrawable is ScaleDrawable)
-            oldDrawable.drawable = drawable
+    when (val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.background)) {
+        is ClipDrawable -> oldDrawable.drawable = drawable
+        is ScaleDrawable -> oldDrawable.drawable = drawable
+        is InsetDrawable -> oldDrawable.drawable = drawable
+        // ShapeDrawable is a generic shape and does not have drawables
+        // is ShapeDrawable ->
+    }
 }
 
 @BindingAdapter("primaryProgressDrawable")
 fun ProgressBar.setPrimaryProgressDrawable(drawable: Drawable) {
     val progressBarLayers = this.progressDrawable as LayerDrawable
-    val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress)
-    if (oldDrawable is ClipDrawable)
-        oldDrawable.drawable = drawable
-    else
-        if (oldDrawable is ScaleDrawable)
-            oldDrawable.drawable = drawable
+    when (val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress)) {
+        is ClipDrawable -> oldDrawable.drawable = drawable
+        is ScaleDrawable -> oldDrawable.drawable = drawable
+        is InsetDrawable -> oldDrawable.drawable = drawable
+        // ShapeDrawable is a generic shape and does not have drawables
+        // is ShapeDrawable ->
+    }
 }
 
 @BindingAdapter("secondaryProgressDrawable")
 fun ProgressBar.setSecondaryProgressDrawable(drawable: Drawable) {
     val progressBarLayers = this.progressDrawable as LayerDrawable
-    val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.secondaryProgress)
-    if (oldDrawable is ClipDrawable)
-        oldDrawable.drawable = drawable
-    else
-        if (oldDrawable is ScaleDrawable)
-            oldDrawable.drawable = drawable
+    when (val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.secondaryProgress)) {
+        is ClipDrawable -> oldDrawable.drawable = drawable
+        is ScaleDrawable -> oldDrawable.drawable = drawable
+        is InsetDrawable -> oldDrawable.drawable = drawable
+        // ShapeDrawable is a generic shape and does not have drawables
+        // is ShapeDrawable ->
+    }
 }
     
  ```
