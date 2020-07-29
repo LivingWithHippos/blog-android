@@ -188,11 +188,11 @@ fun ProgressBar.setSecondaryProgressColor(color: Int) {
 ```
     
 ```xml
+    <ProgressBar...
 	app:secondaryProgressColor="@{@color/free_red}" />
 ```
   
-[center] ![determinate progress bar result](progress_determinate_secondary.webm?resize=400) [/center]
-    
+[center] ![determinate progress bar result](progressbar_determinate_secondary.webm?resize=400) [/center]
     
 <div id="layouts"/>
 #### XML Layouts
