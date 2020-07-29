@@ -1,6 +1,6 @@
 ---
 title: content
-media_order: 'progress_determinate_01.webm,progressbar_determinate_secondary.webm'
+media_order: 'progress_determinate_01.webm,progressbar_determinate_secondary.webm,progressbar_determinate_shape.webm'
 menu: Content
 ---
 
@@ -189,10 +189,27 @@ fun ProgressBar.setSecondaryProgressColor(color: Int) {
     
 ```xml
     <ProgressBar...
-	app:secondaryProgressColor="@{@color/free_red}" />
+            app:primaryProgressDrawable="@{@drawable/icon_hexagon}" />
 ```
   
 [center] ![determinate progress bar result](progressbar_determinate_secondary.webm?resize=400) [/center]
+    
+```kotlin
+@BindingAdapter("primaryProgressDrawable")
+fun ProgressBar.setPrimaryProgressDrawable(drawable: Drawable) {
+    val progressBarLayers = this.progressDrawable as LayerDrawable
+    val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress) as ClipDrawable
+    oldDrawable.drawable = drawable
+}
+ ```
+```xml
+    <ProgressBar...
+	app:secondaryProgressColor="@{@color/free_red}" />
+```
+    
+ **Important:** change the color after changing the drawable, otherwise the color will get overwritten.
+    
+[center] ![determinate progress bar result](progressbar_determinate_shape.webm?resize=400) [/center]
     
 <div id="layouts"/>
 #### XML Layouts
