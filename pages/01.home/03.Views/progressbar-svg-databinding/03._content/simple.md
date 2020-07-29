@@ -101,7 +101,7 @@ We need to set the correct id in the correct order for every item, to get it rec
 
 ### Manage colors with Kotlin's Extensions and Databinding
 
-Kotlin Extensions are ***cool*** and you can do a lot of stuff with them. In this case we can create a new xml parameter for our progressbar to set the color. Create a new `Extension.kt` file and copy-paste this:
+Kotlin Extensions are ***cool*** and you can do a lot of stuff with them. In this case we can create a new xml parameter for our progress bar to set its progression color. Create a new `Extension.kt` file if you don't have one already and copy-paste this:
 
 ```kotlin
 @BindingAdapter("progressColor")
@@ -115,13 +115,11 @@ fun ProgressBar.setProgressColor(color: Int) {
 }
 ```
 
-the
-    ```kotlin
-    @BindingAdapter("progressColor")
-    ``` 
-    annotation will process `progressColor` when found in a progress bar xml and execute the code
+
+`@BindingAdapter("progressColor")` 
+ this annotation will process `progressColor` when found in a progress bar xml and execute the code
     
-`.mutate()` will avoid editing the color of every instance of the drawable, it's needed because in this case we're using the same one three times
+`mutate()` will avoid editing the color of every instance of the drawable, it's needed because in this case we're using the same one three times
 
 
 ### Add the progress bar to the Layout
