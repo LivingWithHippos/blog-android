@@ -1,5 +1,6 @@
 ---
 title: content
+media_order: progress_determinate_01.webm
 menu: Content
 ---
 
@@ -167,6 +168,8 @@ you will probably use a custom value passed with data binding such as `android:p
 
 **important:** parameters passed to the `BindingAdapter` needs to be written data-binding style, such as `@{@color/green_pasture}"` or `@{@true}`
 Swap `green_pasture` with your own color.
+
+![determinate progress bar result](progress_determinate_01.webm)
 
 <div id="additems"/>
 ### Adding new items
