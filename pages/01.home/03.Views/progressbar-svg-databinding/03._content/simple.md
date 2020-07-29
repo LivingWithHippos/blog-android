@@ -364,9 +364,9 @@ Vectors for your app:
 
 !!!! [fa=fa-images /] [Icon Monstr](https://iconmonstr.com/) 
     
-!!!! [fa icon=fa-images extra=fas /] [Icon Monstr](https://iconmonstr.com/) 
+!!!! [fa icon=fa-images extras=fas /] [Icon Monstr](https://iconmonstr.com/) 
     
-!!!! [fa icon=fa-images extra=far /] [Icon Monstr](https://iconmonstr.com/) 
+!!!! [fa icon=fa-images extras=far /] [Icon Monstr](https://iconmonstr.com/) 
     
 !!!! [fa=fa-images /] [SVG Repo](https://www.svgrepo.com/) 
     
