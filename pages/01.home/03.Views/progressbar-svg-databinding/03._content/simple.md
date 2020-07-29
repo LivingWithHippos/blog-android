@@ -169,7 +169,7 @@ fun ProgressBar.setProgressColor(color: Int) {
 
 **important:** parameters passed to the `BindingAdapter` needs to be written data-binding style, such as `@{@color/green_pasture}"` or `@{@true}`
 
-[center] ![determinate progress bar result](progress_determinate_01.webm) [/center]
+[center] ![determinate progress bar result](progress_determinate_01.webm?resize=400) [/center]
 
 <div id="additems"/>
 ### Adding new items
