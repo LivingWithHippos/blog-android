@@ -372,6 +372,12 @@ Vectors for your app:
     
 !!!! [fa=fa-image /] [Icons Repo](https://iconsrepo.com/) 
     
-!!!! [fa icon=fa-image extras=fa-fw /] [Icons Repo](https://iconsrepo.com/) 
+!!!! [fa icon=fa-image extras=fa-fas /] [Icons Repo](https://iconsrepo.com/) 
+    
+!!!! [fa icon=fa-image extras=fas /] [Icons Repo](https://iconsrepo.com/) 
+    
+!!!! [fas icon=fa-image /] [Icons Repo](https://iconsrepo.com/) 
+    
+!!!! [fa icon=fas-image /] [Icons Repo](https://iconsrepo.com/) 
     
 !!!! [fa=far-images /] [Game Icons](https://game-icons.net/) 
