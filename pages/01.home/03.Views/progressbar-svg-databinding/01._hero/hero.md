@@ -9,4 +9,4 @@ hero_image: banner.png
 ## using Data Binding
 
 Android has finally started supporting svg files without converting them to png.
-Use them to create a custom vertical progressbar.
+Use them to create a custom progress bars.
