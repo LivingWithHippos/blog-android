@@ -15,9 +15,10 @@ This blog will contain guides, tips and tricks related to Android development. I
 ### TABLE OF CONTENTS
 
 * [View Binding](viewbinding/)
-    * [View Binding, An Introduction](viewbinding/introduction)
+    * [View Binding, an introduction](viewbinding/introduction)
     * [Managing multiple list items layouts with Viewbinding](viewbinding/viewbinding-for-lists)
 * [Views Stuff](views/)
+    * [Custom progress bar with Vectors](views/progressbar-svg-databinding)
 
 [center]
 ![Avatar](avatar_02_01.png?resize=400)
