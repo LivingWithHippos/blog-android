@@ -221,8 +221,9 @@ As you can see from the video, we need to be careful of the vectors' shape, here
     
 [details="Complete extension list"]
     
-    ```kotlin
-    @BindingAdapter("backgroundProgressColor")
+```kotlin
+    
+@BindingAdapter("backgroundProgressColor")
 fun ProgressBar.setBackgroundProgressColor(color: Int) {
     val progressBarLayers = progressDrawable as LayerDrawable
     val progressDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.background).mutate()
@@ -276,6 +277,7 @@ fun ProgressBar.setSecondaryProgressDrawable(drawable: Drawable) {
         if (oldDrawable is ScaleDrawable)
             oldDrawable.drawable = drawable
 }
+    
  ```
     
 [/details]
