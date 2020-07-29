@@ -286,7 +286,7 @@ fun ProgressBar.setSecondaryProgressDrawable(drawable: Drawable) {
 
 Another complete example:
     
-[center] ![determinate progress bar result](progressbar_alternative_01.webm?resize=400) [/center]!
+[center] ![determinate progress bar result](progressbar_alternative_01.webm?resize=400) [/center]
     
     
 [details="And its code"]
