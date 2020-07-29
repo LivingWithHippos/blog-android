@@ -366,6 +366,6 @@ Vectors for your app:
     
 !!!! [fas=fa-images /] [SVG Repo](https://www.svgrepo.com/) 
     
-!!!! [far=fa-images /] [Icons Repo](https://iconsrepo.com/) 
+!!!! [fa=fa-image /] [Icons Repo](https://iconsrepo.com/) 
     
 !!!! [fa=far-images /] [Game Icons](https://game-icons.net/) 
