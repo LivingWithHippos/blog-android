@@ -77,7 +77,7 @@ Let's take a look at the code
 My vector, replace it with yours. The same one is used on all of the code because the bottom one ("unprogressed" or background) will always be visible. If you use another image it won't get hidden correctly by the progress, unless they're exactly the same shape/ progressively bigger/ you're showing both on purpose etc.
 
 ```xml
-< android:id="@android:id/background"
+<item android:id="@android:id/background"
      ...
     android:id="@android:id/secondaryProgress"
      ...
@@ -97,7 +97,7 @@ We need to set the correct id in the correct order for every item, to get it rec
 
 [clip](https://developer.android.com/guide/topics/resources/drawable-resource#Clip) will show our partial progress on top of the background image.
 
-!!! [fa=fa-android /] Tip: vertical progress bar are evil and Android does not support them, But using these parameters you can easily create one
+!! [fa=fa-android /] Tip: vertical progress bar are evil and Android does not support them, But using these parameters you can easily create one
 
 ### Manage colors with Kotlin's Extensions and Databinding
 
