@@ -10,9 +10,9 @@ menu: Content
 Vectors can scale correctly at any size and are perfect for simple images like logos and symbols around your app, and data binding makes adding functionalities to Views really easy.
 We will be creating a vertical determinate progress bar easily adaptable to our needs.
 
-!!! [[fa icon=fa-android /] Android Official Page on Vector Drawable](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)
+!!! [[fa icon=fa-android extras=fab /] Android Official Page on Vector Drawable](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)
 
-!!! [[fa=fa-android /] Android Official Page on Progress Bars](https://developer.android.com/reference/android/widget/ProgressBar)
+!!! [[fa icon=fa-android /] Android Official Page on Progress Bars](https://developer.android.com/reference/android/widget/ProgressBar)
 
 <div id="setup"/>
 ### Setup
