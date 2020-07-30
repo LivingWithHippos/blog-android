@@ -116,6 +116,8 @@ You can find a list of animable attributes for VectorDrawable in a table under [
 
 Since the vector is just an XML file, we can open it and add our name to the correct target. In this case
 
+`icon_crown.xml`
+
 ```xml
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="30dp"
