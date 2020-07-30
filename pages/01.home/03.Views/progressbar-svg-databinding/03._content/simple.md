@@ -108,19 +108,33 @@ Kotlin Extensions are ***cool*** and you can do a lot of stuff with them. In thi
 ```kotlin
 @BindingAdapter("progressColor")
 fun ProgressBar.setProgressColor(color: Int) {
-    // get our layer list
-    val progressBarLayers = progressDrawable as LayerDrawable
-    // find the progress drawable
-    val progressDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress).mutate()
-    // set our color
+    tintDrawable(android.R.id.progress, color)
+}
+
+fun ProgressBar.getLayerDrawable(): LayerDrawable {
+    return (if (isIndeterminate) indeterminateDrawable else progressDrawable)  as LayerDrawable
+}
+
+fun ProgressBar.getDrawableByLayerId(id: Int): Drawable {
+    return getLayerDrawable().findDrawableByLayerId(id)
+}
+
+fun ProgressBar.tintDrawable(layerId: Int, color: Int) {
+    val progressDrawable = getDrawableByLayerId(layerId).mutate()
     progressDrawable.setTint(color)
 }
 ```
 
 
-`@BindingAdapter("progressColor")`: this annotation will process `progressColor` (you can change it) when found in a progress bar XML and execute the code
+`@BindingAdapter("progressColor")`: this annotation will process `progressColor` (you can change it to another tag) when found in a progress bar XML and execute the code
     
 `mutate()` will avoid editing the color of every instance of the drawable, it's needed because in this case we're using the same one three times.
+
+`getLayerDrawable()` will return the correct determinate or indeterminate layer list
+
+! [fa icon=clipboard-list extras=fas /] todo: check if this could also be a [State](https://developer.android.com/guide/topics/resources/drawable-resource#StateList) or [Level](https://developer.android.com/guide/topics/resources/drawable-resource#LevelList) list or a [TransitionDrawable](https://developer.android.com/guide/topics/resources/drawable-resource#Transition)
+
+`getDrawableByLayerId(id: Int)` willreturn a reference to a Drawable in the layer list
 
 This extension is useful because there's no easy way to change the drawables' colors in the layer list.
 
@@ -175,45 +189,59 @@ This extension is useful because there's no easy way to change the drawables' co
 <div id="addproperties"/>
 ### Adding other properties
 
-We can add new extensions easily:
+Using our progress bar extensions we can add new functionalities easily:
     
-* Secondary progress bar color
+Secondary progress bar color:
 
 ```kotlin
 @BindingAdapter("secondaryProgressColor")
 fun ProgressBar.setSecondaryProgressColor(color: Int) {
-    val progressBarLayers = progressDrawable as LayerDrawable
-    val progressDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.secondaryProgress).mutate()
-    progressDrawable.setTint(color)
+    tintDrawable(android.R.id.secondaryProgress, color)
 }
 ```
     
 ```xml
     <ProgressBar...
-            app:primaryProgressDrawable="@{@drawable/icon_hexagon}" />
+            app:secondaryProgressColor="@{@drawable/icon_hexagon}" />
 ```
   
 [center] ![determinate progress bar result](progressbar_determinate_secondary.webm?resize=400) [/center]
-    
+
+#### Swap a drawable
+
+We can use this function to swap a drawable with another. Since we're only swapping it, all the scaling/rotation settings will be kept.
+
 ```kotlin
-@BindingAdapter("primaryProgressDrawable")
-fun ProgressBar.setPrimaryProgressDrawable(drawable: Drawable) {
-    val progressBarLayers = this.progressDrawable as LayerDrawable
-    when (val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress)) {
+fun ProgressBar.swapLayerDrawable(layerId: Int, drawable: Drawable) {
+    when (val oldDrawable = getDrawableByLayerId(layerId)) {
         is ClipDrawable -> oldDrawable.drawable = drawable
         is ScaleDrawable -> oldDrawable.drawable = drawable
         is InsetDrawable -> oldDrawable.drawable = drawable
+        is RotateDrawable -> oldDrawable.drawable = drawable
+        is VectorDrawable -> getLayerDrawable().setDrawableByLayerId(layerId, drawable)
         // ShapeDrawable is a generic shape and does not have drawables
         // is ShapeDrawable ->
     }
 }
- ```
+```  
+The power of [smart casting!](https://kotlinlang.org/docs/reference/typecasts.html)
+
+
+!!! [fa icon=fa-bell extras=far /] swapping Drawable not working? Debug swapLayerDrawable and check which class oldDrawable belongs to
+
+Let's try swapping our main progress Drawable: 
+
+```kotlin
+@BindingAdapter("primaryProgressDrawable")
+fun ProgressBar.setPrimaryProgressDrawable(drawable: Drawable) {
+    setLayerDrawable(android.R.id.progress, drawable)
+}
+```
+ 
 ```xml
     <ProgressBar...
 	app:primaryProgressDrawable="@{@drawable/icon_hexagon}" />
 ```
-
-We check for ScaleDrawable because that's what is used by the vanilla horizontal progress bar. If you don't set an `android:progressDrawable`, your image will be stretched instead of clipped, and it will (probably) look strange.
     
  **Important:** change the color **after** changing the drawable; otherwise, it will get overwritten.
     
@@ -227,63 +255,60 @@ As you can see from the video, we need to be careful of the vectors' shape, as t
     
 @BindingAdapter("backgroundProgressColor")
 fun ProgressBar.setBackgroundProgressColor(color: Int) {
-    val progressBarLayers = progressDrawable as LayerDrawable
-    val progressDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.background).mutate()
-    progressDrawable.setTint(color)
+    tintDrawable(android.R.id.background, color)
 }
 
 @BindingAdapter("progressColor")
 fun ProgressBar.setProgressColor(color: Int) {
-    val progressBarLayers = progressDrawable as LayerDrawable
-    val progressDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress).mutate()
-    progressDrawable.setTint(color)
+    tintDrawable(android.R.id.progress, color)
 }
 
 @BindingAdapter("secondaryProgressColor")
 fun ProgressBar.setSecondaryProgressColor(color: Int) {
-    val progressBarLayers = progressDrawable as LayerDrawable
-    val progressDrawable =
-        progressBarLayers.findDrawableByLayerId(android.R.id.secondaryProgress).mutate()
-    progressDrawable.setTint(color)
+    tintDrawable(android.R.id.secondaryProgress, color)
 }
 
 @BindingAdapter("backgroundProgressDrawable")
 fun ProgressBar.setBackgroundProgressDrawable(drawable: Drawable) {
-    val progressBarLayers = this.progressDrawable as LayerDrawable
-    when (val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.background)) {
-        is ClipDrawable -> oldDrawable.drawable = drawable
-        is ScaleDrawable -> oldDrawable.drawable = drawable
-        is InsetDrawable -> oldDrawable.drawable = drawable
-        // ShapeDrawable is a generic shape and does not have drawables
-        // is ShapeDrawable ->
-    }
+    swapLayerDrawable(android.R.id.background, drawable)
 }
 
 @BindingAdapter("primaryProgressDrawable")
 fun ProgressBar.setPrimaryProgressDrawable(drawable: Drawable) {
-    val progressBarLayers = this.progressDrawable as LayerDrawable
-    when (val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.progress)) {
+    swapLayerDrawable(android.R.id.progress, drawable)
+}
+
+@BindingAdapter("secondaryProgressDrawable")
+fun ProgressBar.setSecondaryProgressDrawable(drawable: Drawable) {
+    swapLayerDrawable(android.R.id.secondaryProgress, drawable)
+}
+
+fun ProgressBar.tintDrawable(layerId: Int, color: Int) {
+    val progressDrawable = getDrawableByLayerId(layerId).mutate()
+    progressDrawable.setTint(color)
+}
+
+fun ProgressBar.swapLayerDrawable(layerId: Int, drawable: Drawable) {
+    when (val oldDrawable = getDrawableByLayerId(layerId)) {
         is ClipDrawable -> oldDrawable.drawable = drawable
         is ScaleDrawable -> oldDrawable.drawable = drawable
         is InsetDrawable -> oldDrawable.drawable = drawable
+        is RotateDrawable -> oldDrawable.drawable = drawable
+        is VectorDrawable -> getLayerDrawable().setDrawableByLayerId(layerId, drawable)
         // ShapeDrawable is a generic shape and does not have drawables
         // is ShapeDrawable ->
     }
 }
 
-@BindingAdapter("secondaryProgressDrawable")
-fun ProgressBar.setSecondaryProgressDrawable(drawable: Drawable) {
-    val progressBarLayers = this.progressDrawable as LayerDrawable
-    when (val oldDrawable = progressBarLayers.findDrawableByLayerId(android.R.id.secondaryProgress)) {
-        is ClipDrawable -> oldDrawable.drawable = drawable
-        is ScaleDrawable -> oldDrawable.drawable = drawable
-        is InsetDrawable -> oldDrawable.drawable = drawable
-        // ShapeDrawable is a generic shape and does not have drawables
-        // is ShapeDrawable ->
-    }
+fun ProgressBar.getLayerDrawable(): LayerDrawable {
+    return (if (isIndeterminate) indeterminateDrawable else progressDrawable)  as LayerDrawable
+}
+
+fun ProgressBar.getDrawableByLayerId(id: Int): Drawable {
+    return getLayerDrawable().findDrawableByLayerId(id)
 }
     
- ```
+```
     
 [/details]
     
