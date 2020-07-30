@@ -89,7 +89,9 @@ The code is pretty self-explanatory:
 
 You can find a list of animable attributes for VectorDrawable in a table under [here.](https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable#xml-for-the-vectordrawable-containing-properties-to-be-animated)
 
-2. Create a file under `res/drawable`, since this will be a loading icon for a download we'll use `download_loading.xml`
+2. Create a file under `res/drawable`
+
+`download_loading.xml`
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -103,8 +105,10 @@ You can find a list of animable attributes for VectorDrawable in a table under [
 
 
 `<target` is the interesting part: 
+
 - `android:name="mainVector"` is telling the animation to search in the drawable for the mainVector name
 - `android:animation="@animator/fade_loop_vector"` will apply the properties to this target
+
 
 3. Add the target name to the vector xml.
 
