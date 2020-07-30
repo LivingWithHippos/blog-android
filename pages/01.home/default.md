@@ -19,6 +19,7 @@ This blog will contain guides, tips and tricks related to Android development. I
     * [Managing multiple list items layouts with Viewbinding](viewbinding/viewbinding-for-lists)
 * [Views Stuff](views/)
     * [Custom progress bar with Vectors](views/progressbar-svg-databinding)
+    * [Simple Animations with Vectors](views/simple_vector_animations)
 
 [center]
 ![Avatar](avatar_02_01.png?resize=400)
