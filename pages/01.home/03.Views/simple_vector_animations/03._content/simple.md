@@ -169,7 +169,7 @@ fun ImageView.startAnimation(start: Boolean) {
 
 If you don't use Kotlin/extensions/data binding get a reference to your ImageView from your fragment/activity class and adapt the function above for ImageView.getDrawable().
 
-![fade effect](fade_01.webm?resize=400)
+[center] ![fade effect](fade_01.webm?resize=400) [/center]
 
 <div id="addproperties"/>
 ### Adding Other Features
@@ -235,7 +235,7 @@ The only difference from before is the `android:propertyName="fillAlpha"` instea
 
 Add it to your ImageView as seen before, and it's ready
 
-![multiple fade effects](paths_fade_01.webm?resize=400)
+[center] ![multiple fade effects](paths_fade_01.webm?resize=400) [/center]
 
 #### Path colors
 
@@ -265,7 +265,7 @@ Add an objectAnimator to your animator and pick the fillColor property to get a 
 </set>
 ```
 
-![colorful paths!](path_colors_01.webm?resize=400)
+[center] ![colorful paths!](path_colors_01.webm?resize=400) [/center] 
 
 <div id="links"/>
 #### Useful Links
