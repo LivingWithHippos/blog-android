@@ -282,6 +282,6 @@ Add an objectAnimator to your animator and pick the fillColor property to get a 
 
 !!!! [[fa icon=fa-palette extras=fas /] Palettes from ColoursLovers](https://www.colourlovers.com/palettes) 
 
-!!!! [[fa icon=fa-android extras=fas /] Android documentation on object-animator](https://developer.android.com/guide/topics/graphics/prop-animation#object-animator) 
+!!!! [[fa icon=fa-android extras=fab /] Android documentation on object-animator](https://developer.android.com/guide/topics/graphics/prop-animation#object-animator) 
 
-!!!! [[fa icon=fa-android extras=fas /] Motionlayout: The new animation library](https://developer.android.com/training/constraint-layout/motionlayout) 
+!!!! [[fa icon=fa-android extras=fab /] Motionlayout: The new animation library](https://developer.android.com/training/constraint-layout/motionlayout) 
