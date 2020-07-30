@@ -63,7 +63,9 @@ Add the vector to your `res/drawable` folder. Right click on it -> New -> Vector
 <div id="build"/>
 ### Animation XML files
 
-1. Create a file under `res/animator`. I will call it `fade_loop_vector.xml` since we're doing a fade animation on a vector target (more of that later)
+1. Create a file under `res/animator`.
+
+`fade_loop_vector.xml`
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
