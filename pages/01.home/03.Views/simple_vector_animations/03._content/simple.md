@@ -1,23 +1,20 @@
 ---
 title: content
-media_order: 'progress_determinate_01.webm,progressbar_determinate_secondary.webm,progressbar_determinate_shape.webm,progressbar_alternative_01.webm'
+media_order: 'paths_fade_01.webm,fade_01.webm,path_colors_01.webm'
 menu: Content
 ---
 
 <div id="intro"/>
-## Why Vectors?
+## Vector Animations
 
-Vectors can scale correctly at any size and are perfect for simple images like logos and symbols around your app, and data binding makes adding functionalities to Views easy.
-We will be creating a vertical determinate progress bar easily adaptable to our needs.
+Vectors can be easily used paired with AnimatedVectorDrawable to create beautiful animation in a simple way.
 
-!!! [[fa icon=fa-android extras=fab /] Android Official Page on Vector Drawable](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)
-
-!!! [[fa icon=fa-android extras=fab /] Android Official Page on Progress Bars](https://developer.android.com/reference/android/widget/ProgressBar)
+!!! [[fa icon=fa-android extras=fab /] Android Official Page on AnimatedVectorDrawable](https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable)
 
 <div id="setup"/>
 ### Setup
 
-Add Data Binding to your app's `build.gradle` (see [here](https://developer.android.com/topic/libraries/data-binding/start)). It should be like this:
+Data binding is optional, but it makes adding xml attributes easy. Add Data Binding to your app's `build.gradle` (see [here](https://developer.android.com/topic/libraries/data-binding/start)). It should be like this:
 
 ```gradle
 android {
@@ -29,116 +26,101 @@ android {
 
 ```
 
-I set minSDK to 24 because it adds some vectors stuff, but I think it could be set as low as 21.
+Add the vector to your `res/drawable` folder. Right click on it -> New -> Vector Asset -> choose "local file" and pick your file (`icon_crown` in this example).
 
-Add the vector to your `res/drawable` folder. Right click on it -> New -> Vector Asset -> choose "local file" and pick your file (`icon_arrows` in this example).
+[details="XML vector if anyone is interested"]
 
-I recommend [Inkscape](https://inkscape.org/) to create and edit vectors.
+```xml
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="30dp"
+    android:height="30dp"
+    android:viewportWidth="30"
+    android:viewportHeight="30">
+  <path
+      android:pathData="M28.1798,25.3804H1.82c-0.2436,0 -0.441,-0.1972 -0.441,-0.441 0,-0.2434 0.1973,-0.441 0.441,-0.441H27.772L28.9118,9.9312 20.6261,14.7322c-0.2113,0.1228 -0.4812,0.0504 -0.6029,-0.1605 -0.1221,-0.211 -0.0501,-0.4801 0.1605,-0.6029l9.0121,-5.2215c0.1422,-0.0819 0.3175,-0.0783 0.4561,0.008 0.1383,0.0875 0.2173,0.2445 0.2046,0.4078L28.6194,24.9732c-0.018,0.2297 -0.2095,0.4068 -0.4396,0.4068"
+      android:strokeWidth="0.0352777"
+      android:fillColor="#100f0d"
+      android:strokeColor="#00000000"
+      android:fillType="nonZero"/>
+  <path
+      android:pathData="M28.1798,25.3804H1.82c-0.2303,0 -0.4217,-0.1771 -0.4396,-0.4068L0.1435,9.1636c-0.0127,-0.1633 0.0661,-0.3203 0.2046,-0.4078 0.1382,-0.0875 0.3139,-0.091 0.4563,-0.008L18.0025,18.7124c0.2106,0.1228 0.2826,0.3923 0.1605,0.6029 -0.1224,0.211 -0.3926,0.2826 -0.6029,0.1605L1.0883,9.9317 2.2277,24.499H28.1798c0.2434,0 0.441,0.1976 0.441,0.441 0,0.2438 -0.1975,0.441 -0.441,0.441"
+      android:strokeWidth="0.0352777"
+      android:fillColor="#100f0d"
+      android:strokeColor="#00000000"
+      android:fillType="nonZero"/>
+  <path
+      android:pathData="m20.3026,14.7915c-0.1133,0 -0.2258,-0.0427 -0.3119,-0.1288l-4.9911,-4.9915 -4.9907,4.9915c-0.1722,0.1722 -0.4512,0.1722 -0.6237,0 -0.1722,-0.1725 -0.1722,-0.4516 0,-0.6237L14.6882,8.7364c0.1722,-0.1722 0.4512,-0.1722 0.6234,0l5.3026,5.3026c0.1725,0.1722 0.1725,0.4512 0,0.6237 -0.0861,0.0861 -0.1986,0.1288 -0.3115,0.1288"
+      android:strokeWidth="0.0352777"
+      android:fillColor="#100f0d"
+      android:strokeColor="#00000000"
+      android:fillType="nonZero"/>
+</vector>
+```
+
+[/details]
+
 
 <div id="build"/>
-### ProgressBar XML file
+### Animation XML files
 
-- A progress bar has different Drawables set for every state: progress, secondary progress, background. The determinate and Indeterminate Drawables are also separated. 
-
-They can be defined in a single file: create a new Drawable (`download-progressbar.xml` here) and copy-paste this:
+1. Create a file under `res/animator`. I will call it `fade_loop_vector.xml`since we're doing a fade animation on a vector target (more of that later)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@android:id/background"
-        android:drawable="@drawable/icon_arrows">
-
-    </item>
-    <item android:id="@android:id/secondaryProgress">
-        <clip
-            android:clipOrientation="vertical"
-            android:drawable="@drawable/icon_arrows"
-            android:gravity="bottom" />
-    </item>
-    <item android:id="@android:id/progress">
-        <clip
-            android:clipOrientation="vertical"
-            android:drawable="@drawable/icon_arrows"
-            android:gravity="bottom" />
-    </item>
-</layer-list>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <objectAnimator
+        android:duration="1000"
+        android:propertyName="alpha"
+        android:valueFrom="1.0f"
+        android:valueTo="0.0f"
+        android:repeatMode="reverse"
+        android:repeatCount="infinite"  />
+</set>
 ```
-From the [documentation](https://developer.android.com/guide/topics/resources/drawable-resource#LayerList)
+The code is pretty self explanatory: 
 
-> A LayerDrawable is a drawable object that manages an array of other drawables. Each drawable in the list is drawn in the order of the list—the last drawable in the list is drawn on top.
-> 
-> Each drawable is represented by an <item> element inside a single <layer-list> element.
+`android:duration="1000"` is the animation duration in milliseconds
 
-Let's take a look at the code:
+`android:propertyName="alpha"` is the property that is going to be changed (important)
+
+`android:valueFrom` and `android:valueTo` are exactly what they sound like
+
+`android:repeatMode="reverse"` and `android:repeatCount="infinite"` are used to loop our animation from start to finish and then from finish to start forever
+
+You can find a list of animable attributes for VectorDrawable in a table under [here.](https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable#xml-for-the-vectordrawable-containing-properties-to-be-animated)
+
+2. Create a file under `res/drawable`, since this will be a loading icon for a download we'll use `download_loading.xml`
 
 ```xml
- android:drawable="@drawable/icon_arrows"
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/icon_crown" >
+    <target
+        android:name="mainVector"
+        android:animation="@animator/fade_loop_vector" />
+</animated-vector>
 ```
 
-My drawable, replace it with yours. The same one is used on all of the code because the bottom one ("unprogressed" or background) will always be visible. If you use another image, it won't get hidden correctly by the progress unless they're the same shape/ progressively bigger/ you're showing both on purpose, etc. (there's an example down here).
+
+`<target` is the interesting part: 
+- `android:name="mainVector"` is telling the animation to search in the drawable for the mainVector name
+- `android:animation="@animator/fade_loop_vector"` will apply the properties to this target
+
+3. Add the target name to the vector xml.
+
+Since the vector is just an xml file, we can open it and add our name to the correct target. In this case
 
 ```xml
-<item android:id="@android:id/background"
-     ...
-    android:id="@android:id/secondaryProgress"
-     ...
-    android:id="@android:id/progress" >
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="30dp"
+    android:height="30dp"
+    android:viewportWidth="30"
+    android:viewportHeight="30"
+    android:name="mainVector">
 ```
 
-We need to set the correct id in the right order for every item:
+4. Add it to the layout and start the animation
 
-```xml
-<clip
-      android:clipOrientation="vertical"
-      android:drawable="@drawable/icon_arrows"
-      android:gravity="bottom" />
-```
-
-> A drawable defined in XML that clips another drawable based on this Drawable's current level.
-
-[clip](https://developer.android.com/guide/topics/resources/drawable-resource#Clip) will show our partial progress on top of the background image.
-
-! [fa icon=fa-bug extras=fas /] Tip: vertical progress bars are evil, and Android does not support them, but using these parameters you can easily create one
-
-### Manage colors with Kotlin's Extensions and Databinding
-
-Kotlin Extensions are ***cool*** and you can do a lot of stuff with them. In this case we can create a new xml parameter for our progress bar to set its progression color. Create a new `Extension.kt` file if you don't have one already and copy-paste this:
-
-```kotlin
-@BindingAdapter("progressColor")
-fun ProgressBar.setProgressColor(color: Int) {
-    tintDrawable(android.R.id.progress, color)
-}
-
-fun ProgressBar.getLayerDrawable(): LayerDrawable {
-    return (if (isIndeterminate) indeterminateDrawable else progressDrawable)  as LayerDrawable
-}
-
-fun ProgressBar.getDrawableByLayerId(id: Int): Drawable {
-    return getLayerDrawable().findDrawableByLayerId(id)
-}
-
-fun ProgressBar.tintDrawable(layerId: Int, color: Int) {
-    val progressDrawable = getDrawableByLayerId(layerId).mutate()
-    progressDrawable.setTint(color)
-}
-```
-
-
-`@BindingAdapter("progressColor")`: this annotation will process `progressColor` (you can change it to another tag) when found in a progress bar XML and execute the code
-    
-`mutate()` will avoid editing the color of every instance of the drawable, it's needed because in this case we're using the same one three times.
-
-`getLayerDrawable()` will return the correct determinate or indeterminate layer list
-
-! [fa icon=clipboard-list extras=fas /] todo: check if this could also be a [StateList](https://developer.android.com/guide/topics/resources/drawable-resource#StateList) or [LevelList](https://developer.android.com/guide/topics/resources/drawable-resource#LevelList) or a [TransitionDrawable](https://developer.android.com/guide/topics/resources/drawable-resource#Transition)
-
-`getDrawableByLayerId(id: Int)` will return a reference to a Drawable in the layer list
-
-This extension is useful because there's no easy way to change the Drawables' colors in the layer list.
-
-### Add the progress bar to the Layout
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -146,257 +128,150 @@ This extension is useful because there's no easy way to change the Drawables' co
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rootLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:indeterminate="false"
-            android:max="100"
-            android:minWidth="100dp"
-            android:minHeight="100dp"
-            android:progress="30"
-            android:progressDrawable="@drawable/download_progressbar"
-            app:progressColor="@{@color/streaming_background}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
-```
-
-`<layout ...`: remember to add data-binding to your layout!
-
-`style="@style/Widget.AppCompat.ProgressBar.Horizontal"`: just use any `ProgressBar.*` style, we will be overriding most of it anyway.
-
-`android:progress="50"`: you will probably use a custom value passed with data binding such as `android:progress="@{data.progress}"`
-
-`app:progressColor="@{@color/green_pasture}"`: set you progress vector color here
-
-**important:** parameters passed to the `BindingAdapter` needs to be written data-binding style, such as `@{@color/green_pasture}` or `@{@true}`
-
-[center] ![determinate progress bar result](progress_determinate_01.webm?resize=400) [/center]
-
-<div id="addproperties"/>
-### Adding other properties
-
-Using our progress bar extensions we can add new functionalities easily:
-    
-Secondary progress bar color:
-
-```kotlin
-@BindingAdapter("secondaryProgressColor")
-fun ProgressBar.setSecondaryProgressColor(color: Int) {
-    tintDrawable(android.R.id.secondaryProgress, color)
-}
-```
-    
-```xml
-    <ProgressBar...
-            app:secondaryProgressColor="@{@drawable/icon_hexagon}" />
-```
-  
-[center] ![determinate progress bar result](progressbar_determinate_secondary.webm?resize=400) [/center]
-
-#### Swap a drawable
-
-We can use this function to swap a drawable with another. Since we're only swapping it, all the scaling/rotation settings will be kept.
-
-```kotlin
-fun ProgressBar.swapLayerDrawable(layerId: Int, drawable: Drawable) {
-    when (val oldDrawable = getDrawableByLayerId(layerId)) {
-        is ClipDrawable -> oldDrawable.drawable = drawable
-        is ScaleDrawable -> oldDrawable.drawable = drawable
-        is InsetDrawable -> oldDrawable.drawable = drawable
-        is RotateDrawable -> oldDrawable.drawable = drawable
-        is VectorDrawable -> getLayerDrawable().setDrawableByLayerId(layerId, drawable)
-        // ShapeDrawable is a generic shape and does not have drawables
-        // is ShapeDrawable ->
-    }
-}
-```  
-The power of [smart casting!](https://kotlinlang.org/docs/reference/typecasts.html)
-
-
-!!! [fa icon=fa-bell extras=far /] swapping Drawable not working? Debug swapLayerDrawable and check which class oldDrawable belongs to
-
-Let's try swapping our main progress Drawable: 
-
-```kotlin
-@BindingAdapter("primaryProgressDrawable")
-fun ProgressBar.setPrimaryProgressDrawable(drawable: Drawable) {
-    setLayerDrawable(android.R.id.progress, drawable)
-}
-```
- 
-```xml
-    <ProgressBar...
-	app:primaryProgressDrawable="@{@drawable/icon_hexagon}" />
-```
-    
- **Important:** change the color **after** changing the drawable; otherwise, it will get overwritten.
-    
-[center] ![determinate progress bar result](progressbar_determinate_shape.webm?resize=400) [/center]
-    
-As you can see from the video, we need to be careful of the vectors' shape, as the hexagon was taller than the triangles, and it looked like it started sooner (they had the same progress number).
-    
-[details="Complete extension list"]
-    
-```kotlin
-    
-@BindingAdapter("backgroundProgressColor")
-fun ProgressBar.setBackgroundProgressColor(color: Int) {
-    tintDrawable(android.R.id.background, color)
-}
-
-@BindingAdapter("progressColor")
-fun ProgressBar.setProgressColor(color: Int) {
-    tintDrawable(android.R.id.progress, color)
-}
-
-@BindingAdapter("secondaryProgressColor")
-fun ProgressBar.setSecondaryProgressColor(color: Int) {
-    tintDrawable(android.R.id.secondaryProgress, color)
-}
-
-@BindingAdapter("backgroundProgressDrawable")
-fun ProgressBar.setBackgroundProgressDrawable(drawable: Drawable) {
-    swapLayerDrawable(android.R.id.background, drawable)
-}
-
-@BindingAdapter("primaryProgressDrawable")
-fun ProgressBar.setPrimaryProgressDrawable(drawable: Drawable) {
-    swapLayerDrawable(android.R.id.progress, drawable)
-}
-
-@BindingAdapter("secondaryProgressDrawable")
-fun ProgressBar.setSecondaryProgressDrawable(drawable: Drawable) {
-    swapLayerDrawable(android.R.id.secondaryProgress, drawable)
-}
-
-fun ProgressBar.tintDrawable(layerId: Int, color: Int) {
-    val progressDrawable = getDrawableByLayerId(layerId).mutate()
-    progressDrawable.setTint(color)
-}
-
-fun ProgressBar.swapLayerDrawable(layerId: Int, drawable: Drawable) {
-    when (val oldDrawable = getDrawableByLayerId(layerId)) {
-        is ClipDrawable -> oldDrawable.drawable = drawable
-        is ScaleDrawable -> oldDrawable.drawable = drawable
-        is InsetDrawable -> oldDrawable.drawable = drawable
-        is RotateDrawable -> oldDrawable.drawable = drawable
-        is VectorDrawable -> getLayerDrawable().setDrawableByLayerId(layerId, drawable)
-        // ShapeDrawable is a generic shape and does not have drawables
-        // is ShapeDrawable ->
-    }
-}
-
-fun ProgressBar.getLayerDrawable(): LayerDrawable {
-    return (if (isIndeterminate) indeterminateDrawable else progressDrawable)  as LayerDrawable
-}
-
-fun ProgressBar.getDrawableByLayerId(id: Int): Drawable {
-    return getLayerDrawable().findDrawableByLayerId(id)
-}
-    
-```
-    
-[/details]
-    
-
-<br>
-Another complete example:
-    
-[center] ![determinate progress bar result](progressbar_alternative_01.webm?resize=400) [/center]
-    
-    
-[details="And its code"]
-  
-download_progressbar.xml
-    
- ```xml
-    <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@android:id/background"
-        android:drawable="@drawable/icon_mountains">
-
-    </item>
-    <item android:id="@android:id/secondaryProgress">
-        <clip
-            android:clipOrientation="horizontal"
-            android:drawable="@drawable/icon_mountains"
-            android:gravity="right" />
-    </item>
-    <item android:id="@android:id/progress">
-        <clip
-            android:clipOrientation="vertical"
-            android:drawable="@drawable/icon_mountains"
-            android:gravity="bottom" />
-    </item>
-</layer-list>
- ```
-    
-fragment_layout.xml
-    
- ```xml
-    <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:indeterminate="false"
-            android:max="100"
-            android:minWidth="300dp"
-            android:minHeight="300dp"
-            android:progress="30"
-            android:progressDrawable="@drawable/download_progressbar"
+        <ImageView
+            android:id="@+id/ivLoading"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:progressColor="@{@color/streaming_background}"
-            app:secondaryProgressColor="@{@color/free_red}" />
+            app:srcCompat="@drawable/download_loading"
+            app:startAnimation="@{true}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
 
- ```
-[/details]
+```
+
+`app:startAnimation="@{true}"` normally you have to get a reference in your code to the ImageView to start the animation, but here we'll be using data binding once again.
+
+Create a new Kotlin extension:
+
+```kotlin
+@BindingAdapter("startAnimation")
+fun ImageView.startAnimation(start: Boolean) {
+    if (drawable is Animatable) {
+        if (start)
+            (drawable as Animatable).start()
+        else
+            (drawable as Animatable).stop()
+    }
+}
+```
+
+If you don't use kotlin/extensions/data binding get a reference to your ImageView from your fragment/activity class and adapt the function above for ImageView.getDrawable().
+
+<div id="addproperties"/>
+### Adding Other Features
+
+#### Partial path effects
+
+Thanks to the `android:name` attribute, it's easy to operate on single paths. 
+
+1. Go back to the vector xml and add names where needed.
+
+```xml
+<path
+      ...
+        android:name="rightSide"
+        /> 
+<path
+      ...
+      android:name="leftSide"
+      />
+<path
+      ...
+      android:name="middle"
+      />
+```
+
+2. Create a new `res/animator`file (one per animation) and add your animator code.
+
+`fade_loop_path_2.xml`:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <objectAnimator
+        android:duration="2000"
+        android:propertyName="fillAlpha"
+        android:valueFrom="1"
+        android:valueTo="0"
+        android:repeatMode="reverse"
+        android:repeatCount="infinite"  />
+</set>
+```
+
+The only difference from before is the `android:propertyName="fillAlpha"` instead of `alpha`, which goes from 0 to 1 (no float).
+
+3. Create a new Drawable to link the animator to the vector. `animated_crown.xml`:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/icon_crown">
+    <target
+        android:name="leftSide"
+        android:animation="@animator/fade_loop_path_1" />
+    <target
+        android:name="rightSide"
+        android:animation="@animator/fade_loop_path_2" />
+    <target
+        android:name="middle"
+        android:animation="@animator/fade_loop_path_3" />
+</animated-vector>
+```
+
+Add it to your ImageView as seen before and we're done.
+
+#### Path colors
+
+Add an objectAnimator to your animator and pick the fillColor property to get a gorgeous-looking effect
+
+`fade_loop_path_1.xml`:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <objectAnimator
+        android:duration="2000"
+        android:propertyName="fillAlpha"
+        android:valueFrom="1"
+        android:valueTo="0"
+        android:repeatMode="reverse"
+        android:repeatCount="infinite"  />
+
+    <objectAnimator
+        android:duration="3000"
+        android:propertyName="fillColor"
+        android:valueFrom="#C7F464"
+        android:valueTo="#FF6B6B"
+        android:repeatMode="reverse"
+        android:repeatCount="infinite"  />
+</set>
+```
 
 <div id="links"/>
 #### Useful Links
 
-Vectors for your app:
+!!!! [[fa icon=fa-palette extras=fas /] Palettes from ColoursLovers](https://www.colourlovers.com/palettes) 
 
-    
-!!!! [fa icon=fa-images extras=fas /] [Icon Monstr](https://iconmonstr.com/) 
-    
-!!!! [fa icon=fa-images extras=far /] [SVG Repo](https://www.svgrepo.com/) 
-    
-!!!! [fa icon=fa-images extras=fas /] [Icons Repo](https://iconsrepo.com/) 
-    
-!!!! [fa icon=fa-images extras=far /] [Game Icons](https://game-icons.net/) 
+!!!! [[fa icon=fa-android extras=fas /] Android documentation on object-animator](https://developer.android.com/guide/topics/graphics/prop-animation#object-animator) 
+
+!!!! [[fa icon=fa-android extras=fas /] Motionlayout: The new animation library](https://developer.android.com/training/constraint-layout/motionlayout) 
+
+
+
+
+
+
