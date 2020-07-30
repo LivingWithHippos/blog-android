@@ -5,6 +5,6 @@ content:
 body_classes: 'modular header-transparent header-fixed'
 onpage_menu: true
 highlight:
-    theme: androidstudio
+    theme: isbl-editor-light
 ---
 
