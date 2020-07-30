@@ -132,7 +132,7 @@ fun ProgressBar.tintDrawable(layerId: Int, color: Int) {
 
 `getLayerDrawable()` will return the correct determinate or indeterminate layer list
 
-! [fa icon=clipboard-list extras=fas /] todo: check if this could also be a [State](https://developer.android.com/guide/topics/resources/drawable-resource#StateList) or [Level](https://developer.android.com/guide/topics/resources/drawable-resource#LevelList) list or a [TransitionDrawable](https://developer.android.com/guide/topics/resources/drawable-resource#Transition)
+! [fa icon=clipboard-list extras=fas /] todo: check if this could also be a [StateList](https://developer.android.com/guide/topics/resources/drawable-resource#StateList) or [LevelList](https://developer.android.com/guide/topics/resources/drawable-resource#LevelList) or a [TransitionDrawable](https://developer.android.com/guide/topics/resources/drawable-resource#Transition)
 
 `getDrawableByLayerId(id: Int)` will return a reference to a Drawable in the layer list
 
