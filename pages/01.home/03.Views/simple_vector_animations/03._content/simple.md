@@ -188,6 +188,8 @@ Thanks to the `android:name` attribute, it's easy to operate on single paths.
 
 1. Go back to the vector xml and add names where needed.
 
+`icon_crown.xml`
+
 ```xml
 <path
       ...
@@ -203,7 +205,7 @@ Thanks to the `android:name` attribute, it's easy to operate on single paths.
       />
 ```
 
-2. Create a new `res/animator`file (one per animation) and add your animator code.
+2. Create a new _res/animator_ file (one per animation) and add your animator code.
 
 `fade_loop_path_2.xml`:
 
