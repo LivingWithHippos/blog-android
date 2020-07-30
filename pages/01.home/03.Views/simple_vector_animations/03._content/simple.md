@@ -90,7 +90,7 @@ The code is pretty self-explanatory:
 `android:repeatMode="reverse"` and `android:repeatCount="infinite"` are used to loop our animation from start to finish and then from finish to start forever
 
 You can find a list of animable attributes for VectorDrawable in a table under [here.](https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable#xml-for-the-vectordrawable-containing-properties-to-be-animated)
-
+<br>
 2. Create a file under _res/drawable_
 
 `download_loading.xml`
@@ -111,7 +111,7 @@ You can find a list of animable attributes for VectorDrawable in a table under [
 - `android:name="mainVector"` is telling the animation to search in the drawable for the mainVector name
 - `android:animation="@animator/fade_loop_vector"` will apply the properties to this target
 
-
+<br>
 3. Add the target name to the vector xml.
 
 Since the vector is just an XML file, we can open it and add our name to the correct target. In this case
