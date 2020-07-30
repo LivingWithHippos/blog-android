@@ -26,7 +26,7 @@ android {
 
 ```
 
-Add the vector to your `res/drawable` folder. Right click on it -> New -> Vector Asset -> choose "local file" and pick your file (`icon_crown` in this example).
+Add the vector to your _res/drawable_ folder. Right click on it -> New -> Vector Asset -> choose "local file" and pick your file (`icon_crown` in this example).
 
 [details="XML vector if anyone is interested"]
 
@@ -63,7 +63,7 @@ Add the vector to your `res/drawable` folder. Right click on it -> New -> Vector
 <div id="build"/>
 ### Animation XML files
 
-1. Create a file under `res/animator`.
+1. Create a file under _res/animator_
 
 `fade_loop_vector.xml`
 
@@ -91,7 +91,7 @@ The code is pretty self-explanatory:
 
 You can find a list of animable attributes for VectorDrawable in a table under [here.](https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable#xml-for-the-vectordrawable-containing-properties-to-be-animated)
 
-2. Create a file under `res/drawable`
+2. Create a file under _res/drawable_
 
 `download_loading.xml`
 
