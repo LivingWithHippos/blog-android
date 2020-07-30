@@ -17,7 +17,7 @@ features:
         url: '#build'
     -
         icon: 'fa fa-plus-circle'
-        header: Extension
+        header: 'Adding Features'
         url: '#addproperties'
     -
         icon: 'fa fa-line-chart'
