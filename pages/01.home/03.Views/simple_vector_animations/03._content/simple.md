@@ -110,7 +110,6 @@ You can find a list of animable attributes for VectorDrawable in a table under [
 
 - `android:name="mainVector"` is telling the animation to search in the drawable for the mainVector name
 - `android:animation="@animator/fade_loop_vector"` will apply the properties to this target
-
 <br>
 3. Add the target name to the vector xml.
 
