@@ -123,7 +123,7 @@ Since the vector is just an XML file, we can open it and add our name to the cor
     android:viewportHeight="30"
     android:name="mainVector">
 ```
-
+<br>
 4. Add it to the layout and start the animation
 
 
