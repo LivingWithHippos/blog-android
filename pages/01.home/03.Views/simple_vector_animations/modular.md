@@ -5,6 +5,6 @@ content:
 body_classes: 'modular header-transparent header-fixed'
 onpage_menu: true
 highlight:
-    theme: solarized-light
+    theme: tomorrow
 ---
 
