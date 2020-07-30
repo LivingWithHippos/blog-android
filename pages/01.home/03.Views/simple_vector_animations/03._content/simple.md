@@ -7,14 +7,14 @@ menu: Content
 <div id="intro"/>
 ## Vector Animations
 
-Vectors can be easily used paired with AnimatedVectorDrawable to create beautiful animation in a simple way.
+We can use Vectors paired with AnimatedVectorDrawable to create beautiful animation easily.
 
 !!! [[fa icon=fa-android extras=fab /] Android Official Page on AnimatedVectorDrawable](https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable)
 
 <div id="setup"/>
 ### Setup
 
-Data binding is optional, but it makes adding xml attributes easy. Add Data Binding to your app's `build.gradle` (see [here](https://developer.android.com/topic/libraries/data-binding/start)). It should be like this:
+Data binding is optional, but it makes adding XML attributes simlpe. Add Data Binding to your app's `build.gradle` (see [here](https://developer.android.com/topic/libraries/data-binding/start)). It should be like this:
 
 ```gradle
 android {
@@ -63,7 +63,7 @@ Add the vector to your `res/drawable` folder. Right click on it -> New -> Vector
 <div id="build"/>
 ### Animation XML files
 
-1. Create a file under `res/animator`. I will call it `fade_loop_vector.xml`since we're doing a fade animation on a vector target (more of that later)
+1. Create a file under `res/animator`. I will call it `fade_loop_vector.xml` since we're doing a fade animation on a vector target (more of that later)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -77,13 +77,13 @@ Add the vector to your `res/drawable` folder. Right click on it -> New -> Vector
         android:repeatCount="infinite"  />
 </set>
 ```
-The code is pretty self explanatory: 
+The code is pretty self-explanatory: 
 
 `android:duration="1000"` is the animation duration in milliseconds
 
 `android:propertyName="alpha"` is the property that is going to be changed (important)
 
-`android:valueFrom` and `android:valueTo` are exactly what they sound like
+`android:valueFrom` and `android:valueTo` are what they sound like
 
 `android:repeatMode="reverse"` and `android:repeatCount="infinite"` are used to loop our animation from start to finish and then from finish to start forever
 
@@ -108,7 +108,7 @@ You can find a list of animable attributes for VectorDrawable in a table under [
 
 3. Add the target name to the vector xml.
 
-Since the vector is just an xml file, we can open it and add our name to the correct target. In this case
+Since the vector is just an XML file, we can open it and add our name to the correct target. In this case
 
 ```xml
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
@@ -167,7 +167,9 @@ fun ImageView.startAnimation(start: Boolean) {
 }
 ```
 
-If you don't use kotlin/extensions/data binding get a reference to your ImageView from your fragment/activity class and adapt the function above for ImageView.getDrawable().
+If you don't use Kotlin/extensions/data binding get a reference to your ImageView from your fragment/activity class and adapt the function above for ImageView.getDrawable().
+
+![fade effect](fade_01.webm?resize=400)
 
 <div id="addproperties"/>
 ### Adding Other Features
@@ -231,11 +233,13 @@ The only difference from before is the `android:propertyName="fillAlpha"` instea
 </animated-vector>
 ```
 
-Add it to your ImageView as seen before and we're done.
+Add it to your ImageView as seen before, and it's ready
+
+![multiple fade effects](paths_fade_01.webm?resize=400)
 
 #### Path colors
 
-Add an objectAnimator to your animator and pick the fillColor property to get a gorgeous-looking effect
+Add an objectAnimator to your animator and pick the fillColor property to get a gorgeous-looking effect.
 
 `fade_loop_path_1.xml`:
 
@@ -261,6 +265,8 @@ Add an objectAnimator to your animator and pick the fillColor property to get a 
 </set>
 ```
 
+![colorful paths!](path_colors_01.webm?resize=400)
+
 <div id="links"/>
 #### Useful Links
 
@@ -269,9 +275,3 @@ Add an objectAnimator to your animator and pick the fillColor property to get a 
 !!!! [[fa icon=fa-android extras=fas /] Android documentation on object-animator](https://developer.android.com/guide/topics/graphics/prop-animation#object-animator) 
 
 !!!! [[fa icon=fa-android extras=fas /] Motionlayout: The new animation library](https://developer.android.com/training/constraint-layout/motionlayout) 
-
-
-
-
-
-
