@@ -7,7 +7,7 @@ menu: Content
 <div id="intro"/>
 ## Why Vectors?
 
-Vectors can scale correctly at any size and are perfect for simple images like logos and symbols around your app, and data binding makes adding functionalities to Views really easy.
+Vectors can scale correctly at any size and are perfect for simple images like logos and symbols around your app, and data binding makes adding functionalities to Views easy.
 We will be creating a vertical determinate progress bar easily adaptable to our needs.
 
 !!! [[fa icon=fa-android extras=fab /] Android Official Page on Vector Drawable](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)
@@ -29,9 +29,9 @@ android {
 
 ```
 
-I set minSDK to 24 because it adds some vectors stuff, but I think it could be set it as low as 21.
+I set minSDK to 24 because it adds some vectors stuff, but I think it could be set as low as 21.
 
-Add the vector to your `res/drawawble` folder. Right click on it -> New -> Vector Asset -> choose "local file" and pick your file (`icon_arrows` in this example).
+Add the vector to your `res/drawable` folder. Right click on it -> New -> Vector Asset -> choose "local file" and pick your file (`icon_arrows` in this example).
 
 I recommend [Inkscape](https://inkscape.org/) to create and edit vectors.
 
@@ -76,7 +76,7 @@ Let's take a look at the code:
  android:drawable="@drawable/icon_arrows"
 ```
 
-My drawable, replace it with yours. The same one is used on all of the code because the bottom one ("unprogressed" or background) will always be visible. If you use another image, it won't get hidden correctly by the progress unless they're exactly the same shape/ progressively bigger/ you're showing both on purpose, etc (there's an example down here).
+My drawable, replace it with yours. The same one is used on all of the code because the bottom one ("unprogressed" or background) will always be visible. If you use another image, it won't get hidden correctly by the progress unless they're the same shape/ progressively bigger/ you're showing both on purpose, etc. (there's an example down here).
 
 ```xml
 <item android:id="@android:id/background"
@@ -134,9 +134,9 @@ fun ProgressBar.tintDrawable(layerId: Int, color: Int) {
 
 ! [fa icon=clipboard-list extras=fas /] todo: check if this could also be a [State](https://developer.android.com/guide/topics/resources/drawable-resource#StateList) or [Level](https://developer.android.com/guide/topics/resources/drawable-resource#LevelList) list or a [TransitionDrawable](https://developer.android.com/guide/topics/resources/drawable-resource#Transition)
 
-`getDrawableByLayerId(id: Int)` willreturn a reference to a Drawable in the layer list
+`getDrawableByLayerId(id: Int)` will return a reference to a Drawable in the layer list
 
-This extension is useful because there's no easy way to change the drawables' colors in the layer list.
+This extension is useful because there's no easy way to change the Drawables' colors in the layer list.
 
 ### Add the progress bar to the Layout
 
